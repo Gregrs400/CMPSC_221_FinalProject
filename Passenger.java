@@ -1,25 +1,23 @@
 package FinalProject;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 public class Passenger extends Person
 {
 
-    int numOfBags;
-
-    double bagWeight;
+    ArrayList<Integer> bags = new ArrayList<>();
 
     Random random = new Random();
 
     int num = 0;
 
-    public Passenger(String name, int numOfBags, double bagWeight)
+    public Passenger(String name, ArrayList<Integer> bags)
     {
 
 
         this.name = name;
-        this.numOfBags = numOfBags;
-        this.bagWeight = bagWeight;
+        this.bags = bags;
 
     }
 
