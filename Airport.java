@@ -9,8 +9,6 @@ public class Airport
 
         pax1.name = "name";
 
-        System.out.println(pax1.name);
-
         Flight flight1 = new Flight();
 
         System.out.println(flight1.generateStatus());

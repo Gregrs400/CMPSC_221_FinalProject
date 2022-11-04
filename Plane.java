@@ -11,16 +11,14 @@ public class Plane
     Random random = new Random();
 
     ArrayList<Passenger> passengers = new ArrayList<>();
-
-    ArrayList<Integer> passengerBags = new ArrayList<>();
     public void fillPlane()
     {
 
         for(int i = 0; i < 10; i++) {
 
-            int jCounter = random.nextInt(3) + 1;
+            ArrayList<Integer> passengerBags = new ArrayList<>();
 
-            System.out.println(jCounter);
+            int jCounter = random.nextInt(3) + 1;
 
             for (int j = 0; j < jCounter; j++)
             {
@@ -28,8 +26,6 @@ public class Plane
                 int bagWeight = 0;
 
                 bagWeight = random.nextInt(30)+20;
-
-                System.out.println(bagWeight);
 
                 passengerBags.add(bagWeight);
 
@@ -39,26 +35,17 @@ public class Plane
 
             passengers.add(passenger);
 
-            passengerBags.clear();
-
         }
 
-
-        Passenger passengerPrinter = new Passenger();
-
-        System.out.println("bags size: " + passengerPrinter.bags.size());
-
-        for(int i = 0; i < passengers.size(); i++)
+        for(int k = 0; k < passengers.size(); k++)
         {
 
-            passengerPrinter = passengers.get(i);
+            System.out.println("\n" + passengers.get(k).name);
 
-            System.out.println(passengerPrinter.name);
-
-            for(int j = 0; j < passengerPrinter.bags.size(); j++)
+            for(int l = 0; l < passengers.get(k).bags.size(); l++)
             {
 
-                System.out.println(passengerPrinter.bags.get(j));
+                System.out.println(passengers.get(k).bags.get(l));
 
             }
 
