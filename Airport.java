@@ -39,18 +39,20 @@ public class Airport
 
         //System.out.println(flight1.generateStatus());
 
-        Plane plane1 = new Plane();
+        Plane plane1 = new Plane(airlineOne, airlineOne.flights.get(0));
 
         //plane1.fillPlane();
 
-        for(int j = 0; j < airlineOne.flights.size(); j++)
-        {
+//        for(int j = 0; j < airlineOne.flights.size(); j++)
+//        {
+//
+//            System.out.println("Flight Number: " + airlineOne.flights.get(j).number);
+//            System.out.println("Destination: " + airlineOne.flights.get(j).destination + "\n");
+//
+//        }
 
-            System.out.println("Flight Number: " + airlineOne.flights.get(j).number);
-            System.out.println("Destination: " + airlineOne.flights.get(j).destination + "\n");
-
-        }
-
+        System.out.println("Plane flight number: " + plane1.flight.number);
+        System.out.println("Plane destination: " + plane1.flight.destination);
     }
 
     public static Flight generateFlight(Airline aL, String destination)

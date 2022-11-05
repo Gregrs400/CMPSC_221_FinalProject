@@ -11,6 +11,23 @@ public class Plane
     Random random = new Random();
 
     ArrayList<Passenger> passengers = new ArrayList<>();
+
+    String destination;
+
+    int flightNumber = 0;
+
+    Airline airLine = new Airline();
+
+    Flight flight = new Flight();
+
+    public Plane(Airline airline, Flight flight)
+    {
+
+        this.airLine = airline;
+        this.flight = flight;
+
+    }
+
     public void fillPlane()
     {
 

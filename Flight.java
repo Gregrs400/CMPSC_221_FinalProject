@@ -27,6 +27,13 @@ public class Flight
 
     }
 
+    public Flight()
+    {
+
+
+
+    }
+
     public int generateFlightNumber()
     {
 
