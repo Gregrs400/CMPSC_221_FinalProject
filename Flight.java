@@ -1,6 +1,7 @@
 package FinalProject;
 
-import java.util.Random;
+import javax.print.attribute.HashPrintJobAttributeSet;
+import java.util.*;
 
 public class Flight
 {
@@ -10,6 +11,30 @@ public class Flight
     int number;
     int flightTime = landingTime-departureTime;
     String destination;
+
+    Random random = new Random();
+
+    ArrayList<String> airlineDestinations = new ArrayList<>();
+
+    Airline al = new Airline();
+
+    public Flight(Airline al, String destination, int number)
+    {
+
+        this.al = al;
+        this.destination = destination;
+        this.number = number;
+
+    }
+
+    public int generateFlightNumber()
+    {
+
+
+
+        return number;
+
+    }
 
     enum flightStatus
     {
@@ -23,8 +48,6 @@ public class Flight
 
     public flightStatus generateStatus()
     {
-
-        Random random = new Random();
 
         int flightStatusNum = random.nextInt(4);
 
@@ -52,6 +75,7 @@ public class Flight
         }
 
         return fs;
+
     }
 
 }
