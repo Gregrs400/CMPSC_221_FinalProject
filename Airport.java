@@ -2,7 +2,6 @@ package FinalProject;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Random;
 
 public class Airport
 {
@@ -28,51 +27,36 @@ public class Airport
 
         Airline airlineOne = new Airline(alOneDestinations, flightNumbers);
 
-        for(int i = 0; i < airlineOne.destinations.size(); i++)
+        Plane plane1 = new Plane(50);
+
+        airlineOne.addPlane(plane1);
+
+        airlineOne.generateFlight(airlineOne.airlineFleet.get(0), "Miami");
+
+        System.out.println("Plane 1 destination: " + airlineOne.flights.get(0).destination);
+        System.out.println("Plane 1 flight number: " + airlineOne.flights.get(0).number);
+
+        Plane plane2 = new Plane(100);
+
+        airlineOne.addPlane(plane2);
+
+        airlineOne.generateFlight(airlineOne.airlineFleet.get(1), "Boston");
+
+        System.out.println("\nPlane 2 destination: " + airlineOne.flights.get(1).destination);
+        System.out.println("Plane 2 flight number: " + airlineOne.flights.get(1).number);
+
+        airlineOne.flights.get(0).plane.fillPlane(airlineOne.flights.get(0).number);
+
+        airlineOne.flights.get(1).plane.fillPlane(airlineOne.flights.get(1).number);
+
+        System.out.println("\n1st 10 Passengers on Plane 1: \n");
+
+        for(int i = 0; i < airlineOne.flights.get(1).plane.passengers.size(); i++)
         {
 
-            Flight flight = generateFlight(airlineOne, airlineOne.destinations.get(i));
-
-            airlineOne.flights.add(flight);
+            System.out.println(airlineOne.flights.get(1).plane.passengers.get(i).name);
 
         }
-
-        //System.out.println(flight1.generateStatus());
-
-        Plane plane1 = new Plane(airlineOne, airlineOne.flights.get(0));
-
-        //plane1.fillPlane();
-
-//        for(int j = 0; j < airlineOne.flights.size(); j++)
-//        {
-//
-//            System.out.println("Flight Number: " + airlineOne.flights.get(j).number);
-//            System.out.println("Destination: " + airlineOne.flights.get(j).destination + "\n");
-//
-//        }
-
-        System.out.println("Plane flight number: " + plane1.flight.number);
-        System.out.println("Plane destination: " + plane1.flight.destination);
-    }
-
-    public static Flight generateFlight(Airline aL, String destination)
-    {
-        Random random = new Random();
-
-        int flightNumber = 0;
-
-        do
-        {
-
-            flightNumber = random.nextInt(1000)+1;
-
-        }while(aL.flightNumbers.contains(flightNumber));
-
-        aL.flightNumbers.add(flightNumber);
-
-        Flight flight1 = new Flight(aL, destination, flightNumber);
-
-        return flight1;
 
     }
 

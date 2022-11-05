@@ -18,10 +18,12 @@ public class Flight
 
     Airline al = new Airline();
 
-    public Flight(Airline al, String destination, int number)
+    Plane plane = new Plane();
+
+    public Flight(Plane plane, String destination, int number)
     {
 
-        this.al = al;
+        this.plane = plane;
         this.destination = destination;
         this.number = number;
 
@@ -42,6 +44,9 @@ public class Flight
         return number;
 
     }
+
+
+
 
     enum flightStatus
     {

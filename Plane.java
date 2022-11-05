@@ -6,32 +6,34 @@ import java.util.Random;
 public class Plane
 {
 
-    int passengerCapacity;
-
     Random random = new Random();
+
+    int passengerCapacity;
 
     ArrayList<Passenger> passengers = new ArrayList<>();
 
     String destination;
 
-    int flightNumber = 0;
+    Airline airline = new Airline();
 
-    Airline airLine = new Airline();
-
-    Flight flight = new Flight();
-
-    public Plane(Airline airline, Flight flight)
+    public Plane(int capacity)
     {
 
-        this.airLine = airline;
-        this.flight = flight;
+        this.passengerCapacity = capacity;
 
     }
 
-    public void fillPlane()
+    public Plane()
     {
 
-        for(int i = 0; i < 10; i++) {
+
+
+    }
+
+    public void fillPlane(int flightNumber)
+    {
+
+        for(int i = 0; i < passengerCapacity; i++) {
 
             ArrayList<Integer> passengerBags = new ArrayList<>();
 
@@ -48,25 +50,12 @@ public class Plane
 
             }
 
-            Passenger passenger = new Passenger("name" + (i+1), passengerBags);
+            Passenger passenger = new Passenger(flightNumber,flightNumber + "_" + (i+1), passengerBags);
 
             passengers.add(passenger);
 
         }
 
-        for(int k = 0; k < passengers.size(); k++)
-        {
-
-            System.out.println("\n" + passengers.get(k).name);
-
-            for(int l = 0; l < passengers.get(k).bags.size(); l++)
-            {
-
-                System.out.println(passengers.get(k).bags.get(l));
-
-            }
-
-        }
     }
 
 }
