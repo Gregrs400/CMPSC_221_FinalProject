@@ -3,7 +3,8 @@ package FinalProject;
 public abstract class Person
 {//begin Person class
 
-    String name;
+    //all people in this system have an id, which is declared here
+    String id;
 
 }//end Person class
 

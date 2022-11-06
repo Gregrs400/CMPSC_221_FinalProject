@@ -2,16 +2,15 @@ package FinalProject;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Random;
 
 public class Airport
 {//begin Airport class
 
+    static Random random = new Random();
+
     public static void main(String[] args)
     {//begin main method
-
-        Passenger pax1 = new Passenger();
-
-        pax1.name = "name";
 
         ArrayList<Integer> flightNumbers = new ArrayList<>();
 
@@ -36,18 +35,57 @@ public class Airport
 
         airlineOne.addPlane(plane2);
 
-        System.out.println("Start of Loop");
+        int destinationElement;
 
-        for(int j = 0; j < alOneDestinations.size(); j++)
-        {//begin for loop
+        for(int hour = 0; hour < 24; hour++)
+        {//begin outer for loop
 
-            airlineOne.generateFlight(airlineOne.airlineFleet.get(0), alOneDestinations.get(j));
+            for (int min = 0; min < 60; min = min+5)
+            {//begin inner for loop
 
-            airlineOne.flights.get(j).plane.fillPlane(airlineOne.flights.get(j).number);
+                destinationElement = random.nextInt(alOneDestinations.size());
 
-        }//end for loop
+                airlineOne.generateFlight(airlineOne.airlineFleet.get(0), alOneDestinations.get(destinationElement), hour, min);
 
-        System.out.println(airlineOne.flights.get(4).number);
+            }//end inner for loop
+
+        }//end outer for loop
+
+        int flightsElement = 1;
+
+//        if(airlineOne.flights.get(flightsElement).departureTimeHour < 12)
+//            if(airlineOne.flights.get(flightsElement).departureTimeHour == 0) {
+//                if (airlineOne.flights.get(flightsElement).departureTimeMin <= 10)
+//                {
+//                    System.out.println("Flight " + (flightsElement + 1) + " departure time: " + (airlineOne.flights.get(flightsElement).departureTimeHour + 12)
+//                            + ":" + 0 + airlineOne.flights.get(flightsElement).departureTimeMin + " AM");
+//                }
+//                else
+//                {
+//                    System.out.println("Flight " + (flightsElement + 1) + " departure time: " + (airlineOne.flights.get(flightsElement).departureTimeHour + 12)
+//                            + ":" + airlineOne.flights.get(flightsElement).departureTimeMin + " AM");
+//                }
+//            }
+//            else
+//            {
+//                System.out.println("Flight " + (flightsElement+1) + " departure time: " + airlineOne.flights.get(flightsElement).departureTimeHour
+//                        + ":" + airlineOne.flights.get(flightsElement).departureTimeMin + " AM");
+//            }
+//        else
+//        {
+//            if(airlineOne.flights.get(flightsElement).departureTimeHour == 12)
+//            {
+//                System.out.println("Flight " + (flightsElement + 1) + " departure time: " + airlineOne.flights.get(flightsElement).departureTimeHour
+//                        + ":" + airlineOne.flights.get(flightsElement).departureTimeMin + " PM");
+//            }
+//            else
+//            {
+//                System.out.println("Flight " + (flightsElement + 1) + " departure time: " + (airlineOne.flights.get(flightsElement).departureTimeHour - 12)
+//                        + ":" + airlineOne.flights.get(flightsElement).departureTimeMin + " PM");
+//            }
+//        }
+//
+//            System.out.println("Destination: " + airlineOne.flights.get(flightsElement).destination);
 
     }//end main method
 

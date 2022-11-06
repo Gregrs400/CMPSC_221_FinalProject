@@ -5,22 +5,29 @@ import java.util.*;
 public class Flight
 {//begin Flight class
 
-    int departureTime;
-    int landingTime;
+    int departureTimeHour;
+    int departureTimeMin;
+    int landingTimeHour;
+    int landingTimeMin;
+    int flightTimeHour;
+    int flightTimeMin;
+
     int number;
-    int flightTime = landingTime-departureTime;
+
     String destination;
 
     Random random = new Random();
 
     Plane plane;
 
-    public Flight(Plane plane, String destination, int number)
+    public Flight(Plane plane, String destination, int number, int departureTimeHour, int departureTimeMin)
     {//begin Flight parameterized constructor
 
         this.plane = plane;
         this.destination = destination;
         this.number = number;
+        this.departureTimeHour = departureTimeHour;
+        this.departureTimeMin = departureTimeMin;
 
     }//end Flight parameterized constructor
 
