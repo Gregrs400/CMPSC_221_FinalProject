@@ -1,6 +1,8 @@
 package FinalProject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 
 public class Airline
@@ -50,10 +52,12 @@ public class Airline
 
     //generateFlight to create a flight for an airline, assigning each flight a plane, a destination, a flight number, and a departure time
 
-    public void generateFlight (Plane plane, String destination, int departHour, int departMin)
+    public void generateFlight (Plane plane, int departHour, int departMin)
     {//begin generateFlight
 
         Random random = new Random();
+
+        String destination;
 
         int flightNumber = 0;
 
@@ -68,10 +72,71 @@ public class Airline
 
         flightNumbers.add(flightNumber);
 
+        destination = destinations.get(random.nextInt(destinations.size()));
+
         Flight flight1 = new Flight(plane, destination, flightNumber, departHour, departMin);
 
         flights.add(flight1);
 
+    }
+
+    //printFlightNumbers method to print any flight numbers in the flights ArrayList that match the destination in the call
+
+    public void printFlightNumbers(String destination)
+    {//begin printFlightNumbers
+
+        for(int i = 0; i < flights.size(); i++)
+        {//begin for loop
+
+            if(flights.get(i).destination == destination)
+            {//begin if statement
+
+                System.out.println(flights.get(i).number);
+
+            }//end if statement
+
+        }//end for loop
+
+    }//end printFlightNumbers
+
+    //printFlight method to print all info about particular flight in flightsArrayList, as determined by int in call
+    public void printFlight(int element)
+    {
+
+        System.out.println("Flight Number: " + flights.get(element).number);
+        System.out.println("Destination: " + flights.get(element).destination);
+
+        if(flights.get(element).departureTimeHour < 12)
+            if(flights.get(element).departureTimeHour == 0) {
+                if (flights.get(element).departureTimeMin <= 10)
+                {
+                    System.out.println("Flight " + (element + 1) + " departure time: " + (flights.get(element).departureTimeHour + 12)
+                            + ":" + 0 + flights.get(element).departureTimeMin + " AM");
+                }
+                else
+                {
+                    System.out.println("Flight " + (element + 1) + " departure time: " + (flights.get(element).departureTimeHour + 12)
+                            + ":" + flights.get(element).departureTimeMin + " AM");
+                }
+            }
+            else
+            {
+                System.out.println("Flight " + (element+1) + " departure time: " + flights.get(element).departureTimeHour
+                        + ":" + flights.get(element).departureTimeMin + " AM");
+            }
+        else
+        {
+            if(flights.get(element).departureTimeHour == 12)
+            {
+                System.out.println("Flight " + (element + 1) + " departure time: " + flights.get(element).departureTimeHour
+                        + ":" + flights.get(element).departureTimeMin + " PM");
+            }
+            else
+            {
+                System.out.println("Flight " + (element + 1) + " departure time: " + (flights.get(element).departureTimeHour - 12)
+                        + ":" + flights.get(element).departureTimeMin + " PM");
+            }
+        }
     }
 
 
