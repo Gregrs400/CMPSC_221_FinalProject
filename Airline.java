@@ -1,10 +1,10 @@
 package FinalProject;
 
-import java.sql.Array;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class Airline {
+public class Airline
+{//begin Airline class
 
     ArrayList<String> destinations = new ArrayList<>();
 
@@ -14,37 +14,40 @@ public class Airline {
 
     ArrayList<Plane> airlineFleet = new ArrayList<>();
 
-    public Airline(ArrayList<String> destinations, ArrayList<Integer> flightNumbers) {
+    public Airline(ArrayList<String> destinations, ArrayList<Integer> flightNumbers)
+    {//begin Airline parameterized constructor
 
         this.destinations = destinations;
         this.flightNumbers = flightNumbers;
 
-    }
+    }//end Airline parameterized constructor
 
-    public Airline() {
+    public Airline()
+    {//begin Airline default no args constructor
 
 
-    }
+    }//end Airline default no args constructor
 
     public void addPlane(Plane plane)
-    {
+    {//begin addPlane
 
         airlineFleet.add(plane);
 
-    }
+    }//end addPlane
 
     public void generateFlight (Plane plane, String destination)
-    {
+    {//begin generateFlight
+
         Random random = new Random();
 
         int flightNumber = 0;
 
         do
-        {
+        {//begin do-while loop
 
             flightNumber = random.nextInt(1000)+1;
 
-        }while(flightNumbers.contains(flightNumber));
+        }while(flightNumbers.contains(flightNumber)); //end do-while loop
 
         flightNumbers.add(flightNumber);
 

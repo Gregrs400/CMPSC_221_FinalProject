@@ -4,9 +4,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Airport
-{
+{//begin Airport class
 
-    public static void main(String[] args) {
+    public static void main(String[] args)
+    {//begin main method
 
         Passenger pax1 = new Passenger();
 
@@ -31,33 +32,23 @@ public class Airport
 
         airlineOne.addPlane(plane1);
 
-        airlineOne.generateFlight(airlineOne.airlineFleet.get(0), "Miami");
-
-        System.out.println("Plane 1 destination: " + airlineOne.flights.get(0).destination);
-        System.out.println("Plane 1 flight number: " + airlineOne.flights.get(0).number);
-
         Plane plane2 = new Plane(100);
 
         airlineOne.addPlane(plane2);
 
-        airlineOne.generateFlight(airlineOne.airlineFleet.get(1), "Boston");
+        System.out.println("Start of Loop");
 
-        System.out.println("\nPlane 2 destination: " + airlineOne.flights.get(1).destination);
-        System.out.println("Plane 2 flight number: " + airlineOne.flights.get(1).number);
+        for(int j = 0; j < alOneDestinations.size(); j++)
+        {//begin for loop
 
-        airlineOne.flights.get(0).plane.fillPlane(airlineOne.flights.get(0).number);
+            airlineOne.generateFlight(airlineOne.airlineFleet.get(0), alOneDestinations.get(j));
 
-        airlineOne.flights.get(1).plane.fillPlane(airlineOne.flights.get(1).number);
+            airlineOne.flights.get(j).plane.fillPlane(airlineOne.flights.get(j).number);
 
-        System.out.println("\n1st 10 Passengers on Plane 1: \n");
+        }//end for loop
 
-        for(int i = 0; i < airlineOne.flights.get(1).plane.passengers.size(); i++)
-        {
+        System.out.println(airlineOne.flights.get(4).number);
 
-            System.out.println(airlineOne.flights.get(1).plane.passengers.get(i).name);
+    }//end main method
 
-        }
-
-    }
-
-}
+}//end Airport class

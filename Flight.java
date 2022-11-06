@@ -1,10 +1,9 @@
 package FinalProject;
 
-import javax.print.attribute.HashPrintJobAttributeSet;
 import java.util.*;
 
 public class Flight
-{
+{//begin Flight class
 
     int departureTime;
     int landingTime;
@@ -14,59 +13,36 @@ public class Flight
 
     Random random = new Random();
 
-    ArrayList<String> airlineDestinations = new ArrayList<>();
-
-    Airline al = new Airline();
-
-    Plane plane = new Plane();
+    Plane plane;
 
     public Flight(Plane plane, String destination, int number)
-    {
+    {//begin Flight parameterized constructor
 
         this.plane = plane;
         this.destination = destination;
         this.number = number;
 
-    }
-
-    public Flight()
-    {
-
-
-
-    }
-
-    public int generateFlightNumber()
-    {
-
-
-
-        return number;
-
-    }
-
-
-
+    }//end Flight parameterized constructor
 
     enum flightStatus
-    {
+    {//begin flightStatus enum
 
         EARLY,
         ONTIME,
         DELAYED,
         CANCELLED;
 
-    }
+    }//end flightStatus enum
 
     public flightStatus generateStatus()
-    {
+    {//begin generateStatus
 
         int flightStatusNum = random.nextInt(4);
 
         flightStatus fs = flightStatus.ONTIME;
 
         switch(flightStatusNum)
-        {
+        {//begin switch
 
             case 0:
                 fs = flightStatus.EARLY;
@@ -84,10 +60,10 @@ public class Flight
                 fs = flightStatus.CANCELLED;
                 break;
 
-        }
+        }//end switch
 
         return fs;
 
-    }
+    }//end generateStatus
 
-}
+}//end flight
