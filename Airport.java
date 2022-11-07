@@ -69,7 +69,7 @@ public class Airport
 
         int flightsElement = 1;
 
-        airlineOne.printFlight(flightsElement);
+        airlineOne.printAllFlights(airlineOne.flights.get(flightsElement).destination);
 
     }//end main method
 

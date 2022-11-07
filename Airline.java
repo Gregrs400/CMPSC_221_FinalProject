@@ -99,6 +99,23 @@ public class Airline
 
     }//end printFlightNumbers
 
+    public void printAllFlights(String destination)
+    {//begin printAllFlights
+
+        for(int i = 0; i < flights.size(); i++)
+        {//begin for loop
+
+            if(flights.get(i).destination == destination)
+            {//begin if statement
+
+                printFlight(i);
+
+            }//end if statement
+
+        }//end for loop
+
+    }//end printAllFlights
+
     //printFlight method to print all info about particular flight in flightsArrayList, as determined by int in call
     public void printFlight(int element)
     {
@@ -137,6 +154,8 @@ public class Airline
                         + ":" + flights.get(element).departureTimeMin + " PM");
             }
         }
+
+        System.out.println();
     }
 
 
