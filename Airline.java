@@ -137,10 +137,16 @@ public class Airline
                 }
             }
             else
-            {
+                if (flights.get(element).departureTimeMin <= 10)
+                {
+                    System.out.println("Flight " + (element + 1) + " departure time: " + flights.get(element).departureTimeHour
+                            + ":" + 0 + flights.get(element).departureTimeMin + " AM");
+                }
+                else
+                {
                 System.out.println("Flight " + (element+1) + " departure time: " + flights.get(element).departureTimeHour
                         + ":" + flights.get(element).departureTimeMin + " AM");
-            }
+                }
         else
         {
             if(flights.get(element).departureTimeHour == 12)
@@ -149,10 +155,17 @@ public class Airline
                         + ":" + flights.get(element).departureTimeMin + " PM");
             }
             else
-            {
-                System.out.println("Flight " + (element + 1) + " departure time: " + (flights.get(element).departureTimeHour - 12)
-                        + ":" + flights.get(element).departureTimeMin + " PM");
-            }
+                if (flights.get(element).departureTimeMin <= 10)
+                {
+                    System.out.println("Flight " + (element + 1) + " departure time: " + (flights.get(element).departureTimeHour - 12)
+                            + ":" + 0 + flights.get(element).departureTimeMin + " PM");
+                }
+                else
+                {
+                    System.out.println("Flight " + (element + 1) + " departure time: " + (flights.get(element).departureTimeHour - 12)
+                            + ":" + flights.get(element).departureTimeMin + " PM");
+                }
+
         }
 
         System.out.println();

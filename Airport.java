@@ -55,10 +55,10 @@ public class Airport
 
         //declaring an int variable for randomly assigning destinations to flights
 
-        for(int hour = 0; hour < 24; hour++)
+        for(int hour = 6; hour < 24; hour++)
         {//begin outer for loop
 
-            for (int min = 0; min < 60; min = min+5)
+            for (int min = 0; min < 60; min = min+15)
             {//begin inner for loop
 
                 airlineOne.generateFlight(airlineOne.airlineFleet.get(0), hour, min);
@@ -69,7 +69,9 @@ public class Airport
 
         int flightsElement = 1;
 
-        airlineOne.printAllFlights(airlineOne.flights.get(flightsElement).destination);
+        airlineOne.printFlight(60);
+        airlineOne.printFlight(61);
+        airlineOne.printFlight(62);
 
     }//end main method
 
