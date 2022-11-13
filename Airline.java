@@ -18,9 +18,13 @@ public class Airline
 
     private ArrayList<Flight> flights = new ArrayList<>();
 
-    //Plane object ArrayList storing the planes in an airline's fleet
+    //Plane object ArrayList storing the different planes in an airline's fleet
 
     private ArrayList<Plane> airlineFleet = new ArrayList<>();
+
+    //Plane object ArrayList storing every plane utilized by an airline
+
+    private ArrayList<Plane> rollingStock = new ArrayList<>();
 
     //Airline parameterized constructor
 
@@ -55,6 +59,14 @@ public class Airline
 
     public void setAirlineFleet(ArrayList<Plane> airlineFleet) {
         this.airlineFleet = airlineFleet;
+    }
+
+    public ArrayList<Plane> getRollingStock() {
+        return rollingStock;
+    }
+
+    public void setRollingStock(ArrayList<Plane> rollingStock) {
+        this.rollingStock = rollingStock;
     }
 
     public Airline(ArrayList<String> destinations, ArrayList<Integer> flightNumbers)

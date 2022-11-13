@@ -23,8 +23,16 @@ public class Plane
         this.passengers = passengers;
     }
 
+    public int getPassengerCapacity() {
+        return passengerCapacity;
+    }
+
+    public void setPassengerCapacity(int passengerCapacity) {
+        this.passengerCapacity = passengerCapacity;
+    }
+
     //Plane parameterized constructor for use by airlines
-    public Plane(int capacity, ArrayList<Passenger> passengers)
+    public Plane(int capacity)
     {//begin Plane parameterized constructor
 
         this.passengerCapacity = capacity;
@@ -32,10 +40,31 @@ public class Plane
 
     }//end Plane parameterized constructor
 
+    public Plane()
+    {
+
+
+
+    }
+
     public void addPaxtoPlane(Passenger passenger)
     {
 
         passengers.add(passenger);
+
+    }
+
+    public boolean isFull()
+    {
+
+        if(passengers.size() == passengerCapacity)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
 
     }
 

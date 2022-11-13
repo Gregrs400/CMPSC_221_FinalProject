@@ -104,13 +104,20 @@ public class Flight
     public Flight(Plane plane, String destination, int number, int departureTimeHour, int departureTimeMin)
     {//begin Flight parameterized constructor
 
-        this.plane = plane;
-        this.destination = destination;
-        this.number = number;
-        this.departureTimeHour = departureTimeHour;
-        this.departureTimeMin = departureTimeMin;
+        setPlane(plane);
+        setDestination(destination);
+        setNumber(number);
+        setDepartureTimeHour(departureTimeHour);
+        setDepartureTimeMin(departureTimeMin);
 
     }//end Flight parameterized constructor
+
+    public Flight()
+    {
+
+
+
+    }
 
     //flight status enum to assign a flight status depending on the events of the flight
     enum flightStatus

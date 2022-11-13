@@ -43,13 +43,13 @@ public class Passenger extends Person
     }
     //Passenger parameterized constructor, assigning each passenger a flight number, an id, and 1-3 bags inclusive
 
-    public Passenger(int flightNumber, String destination, String id, ArrayList<Integer> bags)
+    public Passenger(int flightNumber, String destination, String id)
     {//begin Passenger parameterized constructor
 
         this.flightNumber = flightNumber;
         this.destination = destination;
         setId(id);
-        this.bags = getPassengerBags();
+        bags = getPassengerBags();
 
     }//end Passenger parameterized constructor
 

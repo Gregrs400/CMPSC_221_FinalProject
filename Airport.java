@@ -41,9 +41,7 @@ public class Airport
 
         //creating a plane, plane1, with 50 passenger capacity
 
-        ArrayList<Passenger> passengersList = new ArrayList<>();
-
-        Plane plane1 = new Plane(50, passengersList);
+        Plane plane1 = new Plane(50);
 
         //adding plane1 to airlineOne's fleet
 
@@ -51,13 +49,15 @@ public class Airport
 
         //creating a plane, plane2, with 100 passenger capacity
 
-        Plane plane2 = new Plane(100, passengersList);
+        Plane plane2 = new Plane(100);
 
         //adding plane2 to airlineOne's fleet
 
         airlineOne.addPlane(plane2);
 
         newDay(airlineOne);
+
+        //System.out.println("Rolling stock: " + airlineOne.getRollingStock().size());
 
 //        airlineOne.printFlight(60);
 //        airlineOne.printFlight(61);
@@ -66,7 +66,7 @@ public class Airport
     }//end main method
 
     public static void newDay(Airline airLine)
-    {
+    {//begin newDay
 
         Passenger passengerUtility = new Passenger();
         //flight generation loop
@@ -77,15 +77,22 @@ public class Airport
             for (int min = 0; min < 60; min = min+(random.nextInt(15)+1))
             {//begin inner for loop
 
-                airLine.generateFlight(airLine.getAirlineFleet().get(0), hour, min);
+                Plane plane = new Plane(airLine.getAirlineFleet().get(0).getPassengerCapacity());
+                airLine.generateFlight(plane, hour, min);
 
             }//end inner for loop
 
         }//end outer for loop
 
-
+        
 
         ArrayList<Passenger> paxInAirport = new ArrayList<>();
+
+        System.out.println("Flights: " + airLine.getFlights().size());
+
+        paxArrival(airLine, paxInAirport, (airLine.getFlights().size()*50));
+
+        System.out.println("Passengers in Airport: " + paxInAirport.size());
 
         //actual airport operations loop
         for(int hour = 0; hour < 2; hour++)
@@ -94,39 +101,46 @@ public class Airport
             for (int min = 0; min < 60; min++)
             {//begin inner for loop
 
-                //intended result: passengers are added to their respective flight's plane, which is not happening,
-                // as I think my declaration of the ranFlight object seems to make its own passengers ArrayList
-
-                if((random.nextInt(15) % 3) == 0)
-                {//begin if
-
-                    Flight ranFlight = airLine.getFlights().get(random.nextInt(airLine.getFlights().size()));
-
-                    ArrayList<Integer> paxBags = new ArrayList<>();
-
-                    Passenger passenger = new Passenger(ranFlight.getNumber(), ranFlight.getDestination(),ranFlight.getNumber() + "_" + (ranFlight.getPlane().getPassengers().size()+1), paxBags);
-
-                    paxInAirport.add(passenger);
-
-                    ranFlight.getPlane().addPaxtoPlane(passenger);
-
-                    System.out.println(ranFlight.getPlane().getPassengers().size());
-
-                }//end if
-
             }//end inner for loop
 
         }//end outer for loop
 
         for(int k = 0; k < paxInAirport.size(); k++)
-        {
+        {//begin for
 
-            passengerUtility.printPassenger(paxInAirport.get(k));
+//            passengerUtility.printPassenger(paxInAirport.get(k));
+//
+//            System.out.println();
 
-            System.out.println();
+        }//end for
 
-        }
+    }//end newDay
 
+    public static ArrayList<Passenger> paxArrival(Airline airline, ArrayList<Passenger> paxInAirport, int pax)
+    {
+
+        for (int i = 0; i < pax; i++)
+        {//begin inner for loop
+
+                Flight ranFlight;
+
+                do
+                {
+
+                    ranFlight = airline.getFlights().get(random.nextInt(airline.getFlights().size()));
+
+                }while(ranFlight.getPlane().isFull());
+
+                Passenger passenger = new Passenger(ranFlight.getNumber(), ranFlight.getDestination(), ranFlight.getNumber() +
+                        "_" + (ranFlight.getPlane().getPassengers().size() + 1));
+
+            paxInAirport.add(passenger);
+
+            ranFlight.getPlane().addPaxtoPlane(passenger);
+
+        }//end inner for loop
+
+        return paxInAirport;
 
     }
 
