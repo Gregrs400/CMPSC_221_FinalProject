@@ -159,6 +159,20 @@ public class Airline
 
     }//end printAllFlights
 
+    public int getSeatsTakenOnFlight(int flightElement)
+    {
+
+        return getFlights().get(flightElement).getPlane().getPassengers().size();
+
+    }
+
+    public Passenger getPassengerOnFlight(int flightElement, int passengerElement)
+    {
+
+        return getFlights().get(flightElement).getPlane().getPassengers().get(passengerElement);
+
+    }
+
     //printFlight method to print all info about particular flight in flightsArrayList, as determined by int in call
     public void printFlight(int element)
     {

@@ -1,6 +1,5 @@
 package FinalProject;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
@@ -57,6 +56,7 @@ public class Airport
 
         newDay(airlineOne);
 
+        printPaxWithSameDest(airlineOne, "Washington DC");
         //System.out.println("Rolling stock: " + airlineOne.getRollingStock().size());
 
 //        airlineOne.printFlight(60);
@@ -84,7 +84,7 @@ public class Airport
 
         }//end outer for loop
 
-
+        
 
         ArrayList<Passenger> paxInAirport = new ArrayList<>();
 
@@ -95,24 +95,26 @@ public class Airport
         System.out.println("Passengers in Airport: " + paxInAirport.size());
 
         //actual airport operations loop
-        for(int hour = 0; hour < 2; hour++)
-        {//begin outer for loop
-
-            for (int min = 0; min < 60; min++)
-            {//begin inner for loop
-
-            }//end inner for loop
-
-        }//end outer for loop
-
-        for(int k = 0; k < paxInAirport.size(); k++)
-        {//begin for
-
-//            passengerUtility.printPassenger(paxInAirport.get(k));
+//        for(int hour = 0; hour < 2; hour++)
+//        {//begin outer for loop
 //
-//            System.out.println();
+//            for (int min = 0; min < 60; min++)
+//            {//begin inner for loop
+//
+//            }//end inner for loop
+//
+//        }//end outer for loop
 
-        }//end for
+//        for(int k = 0; k < paxInAirport.size(); k++)
+//        {//begin for
+//
+//             passengerUtility.printPassenger(paxInAirport.get(k));
+//
+//             System.out.println();
+//
+//        }//end for
+
+
 
     }//end newDay
 
@@ -144,4 +146,16 @@ public class Airport
 
     }
 
+    public static void printPaxWithSameDest(Airline airline, String destination){
+        Passenger passenger = new Passenger();
+
+        for(int i = 0; i < airline.getFlights().size(); i++){
+            if(airline.getFlights().get(i).getDestination() == destination){
+                for(int j = 0; j < airline.getSeatsTakenOnFlight(i); j++){
+                    passenger.printPassenger(airline.getPassengerOnFlight(i,j));
+                    System.out.println();
+                }
+            }
+        }
+    }
 }//end Airport class

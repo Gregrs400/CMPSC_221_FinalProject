@@ -15,6 +15,8 @@ public class Plane
     //declaring Passenger type ArrayList for storing the Passenger objects on the plane
     private ArrayList<Passenger> passengers = new ArrayList<>();
 
+    private int seatsTaken;
+
     public ArrayList<Passenger> getPassengers() {
         return passengers;
     }
@@ -29,6 +31,14 @@ public class Plane
 
     public void setPassengerCapacity(int passengerCapacity) {
         this.passengerCapacity = passengerCapacity;
+    }
+
+    public int getSeatsTaken() {
+        return seatsTaken;
+    }
+
+    public void setSeatsTaken(int seatsTaken) {
+        this.seatsTaken = seatsTaken;
     }
 
     //Plane parameterized constructor for use by airlines
@@ -67,6 +77,7 @@ public class Plane
         }
 
     }
+
 
     //fillPlane method which fills plane to passengerCapacity with passengers
         //may be removed after time is implemented
