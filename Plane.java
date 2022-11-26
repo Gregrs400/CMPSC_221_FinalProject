@@ -1,0 +1,336 @@
+package FinalProject;
+
+import java.util.ArrayList;
+import java.util.Random;
+
+public class Plane
+{//begin Plane class
+
+    //creating Random object for determining passenger's number of bags and each bag's weight
+    private Random random = new Random();
+
+    //declaring int variable to store how many passengers can board plane, defining characteristic of each plane
+    private int passengerCapacity;
+
+    //declaring Passenger type ArrayList for storing the Passenger objects on the plane
+    private ArrayList<Passenger> passengers = new ArrayList<>();
+
+    private int seatsTaken;
+
+    public ArrayList<Passenger> getPassengers() {
+        return passengers;
+    }
+
+    public void setPassengers(ArrayList<Passenger> passengers) {
+        this.passengers = passengers;
+    }
+
+    public int getPassengerCapacity() {
+        return passengerCapacity;
+    }
+
+    public void setPassengerCapacity(int passengerCapacity) {
+        this.passengerCapacity = passengerCapacity;
+    }
+
+    public int getSeatsTaken() {
+        return seatsTaken;
+    }
+
+    public void setSeatsTaken(int seatsTaken) {
+        this.seatsTaken = seatsTaken;
+    }
+
+    private int taxiingToRunwayTime, takeingOffTime, enRouteTime, descendingTime, landingTime, taxiingToGateTime;
+
+    planeStatus ps;
+
+    private Flight flight;
+
+    public void setFlight(Flight flight)
+    {
+
+        this.flight = flight;
+
+    }
+
+    public void setFlightTimes(int flightTime)
+    {
+
+        int ascentDescentTime;
+
+        enRouteTime = flightTime;
+
+        if(enRouteTime <= 60)
+        {
+            int taxiingTime = 1;
+
+            ascentDescentTime = Math.round(enRouteTime / 6);
+
+            taxiingToRunwayTime = taxiingTime;
+            enRouteTime = enRouteTime-taxiingToRunwayTime;
+
+            takeingOffTime = ascentDescentTime;
+            enRouteTime = enRouteTime-ascentDescentTime;
+
+            descendingTime = ascentDescentTime;
+            enRouteTime = enRouteTime-ascentDescentTime;
+
+            landingTime = 3;
+            descendingTime = descendingTime-landingTime;
+
+            taxiingToGateTime = taxiingTime;
+            enRouteTime = enRouteTime-taxiingToGateTime;
+
+        }
+
+        if(enRouteTime > 60)
+        {
+            int taxiingTime = 5;
+
+            taxiingToRunwayTime = taxiingTime;
+            enRouteTime = enRouteTime-taxiingToRunwayTime;
+
+            ascentDescentTime = 15;
+
+            takeingOffTime = ascentDescentTime;
+            enRouteTime = enRouteTime-ascentDescentTime;
+
+            descendingTime = ascentDescentTime;
+            enRouteTime = enRouteTime-ascentDescentTime;
+
+            landingTime = 5;
+            descendingTime = descendingTime-landingTime;
+
+            taxiingToGateTime = taxiingTime;
+            enRouteTime = enRouteTime-taxiingToGateTime;
+
+        }
+
+        System.out.println(enRouteTime);
+
+    }
+
+    //Plane parameterized constructor for use by airlines
+    public Plane(int capacity)
+    {//begin Plane parameterized constructor
+
+        this.passengerCapacity = capacity;
+        setPassengers(passengers);
+
+    }//end Plane parameterized constructor
+
+    public Plane()
+    {//begin Plane no args constructor
+
+    }//end Plane no args constructor
+
+    public void addPaxToPlane(Passenger passenger)
+    {//begin addPaxToPlane
+
+        passengers.add(passenger);
+
+    }//end addPaxToPlane
+
+    public boolean isFull()
+    {//begin isFull
+
+        if(passengers.size() == passengerCapacity)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+
+    }//end isFull
+
+    enum planeStatus
+    {
+
+        READY_TO_TAXI,
+        TAXIING,
+        TAKEING_OFF,
+        EN_ROUTE,
+        DESCENDING,
+        LANDING,
+        LANDED,
+        TAXIING_TO_GATE,
+        AT_GATE
+
+    }
+
+    public void movePlane()
+    {
+
+        if(ps.equals(planeStatus.READY_TO_TAXI))
+        {
+
+            ps = planeStatus.TAXIING;
+            System.out.println(ps);
+            taxiingToRunwayTime--;
+
+        }
+        if(ps.equals(planeStatus.TAXIING))
+        {
+
+            if(taxiingToRunwayTime == 0)
+            {
+
+                ps = planeStatus.TAKEING_OFF;
+                System.out.println(ps);
+                takeingOffTime--;
+
+            }
+            else
+            {
+
+                taxiingToRunwayTime--;
+
+            }
+
+        }
+        if(ps.equals(planeStatus.TAKEING_OFF))
+        {
+
+            if(takeingOffTime == 0)
+            {
+
+                ps = planeStatus.EN_ROUTE;
+                System.out.println(ps);
+                enRouteTime--;
+
+            }
+            else
+            {
+
+                takeingOffTime--;
+
+            }
+
+        }
+        if(ps.equals(planeStatus.EN_ROUTE))
+        {
+
+            if(enRouteTime == 0)
+            {
+
+                ps = planeStatus.DESCENDING;
+                System.out.println(ps);
+                descendingTime--;
+
+            }
+            else
+            {
+
+                enRouteTime--;
+
+            }
+
+        }
+        if (ps.equals(planeStatus.DESCENDING))
+        {
+
+            if(descendingTime == 0)
+            {
+
+                ps = planeStatus.LANDING;
+                System.out.println(ps);
+                landingTime--;
+
+            }
+            else
+            {
+
+                descendingTime--;
+
+            }
+
+        }
+        if(ps.equals(planeStatus.LANDING))
+        {
+
+            if(landingTime == 0)
+            {
+
+                ps = planeStatus.LANDED;
+                System.out.println(ps);
+                ps = planeStatus.TAXIING_TO_GATE;
+                System.out.println(ps);
+                taxiingToGateTime--;
+
+            }
+            else
+            {
+
+                landingTime--;
+
+            }
+
+        }
+        if(ps.equals(planeStatus.TAXIING_TO_GATE))
+        {
+
+            if(taxiingToGateTime == 0)
+            {
+
+                ps = planeStatus.AT_GATE;
+                System.out.println(ps);
+                System.out.println("Flight " + flight.getNumber() + " made it to the gate.");
+
+            }
+            else
+            {
+
+                taxiingToGateTime--;
+
+            }
+
+        }
+
+    }
+
+
+    //fillPlane method which fills plane to passengerCapacity with passengers
+        //may be removed after time is implemented
+
+//    public void fillPlane(int flightNumber)
+//    {//begin fillPlane
+//
+//    //outer loop, "i" representing the element of the passenger ArrayList, as well as the id of the passenger
+//
+//        for(int i = 0; i < passengerCapacity; i++)
+//        {//begin outer for loop
+//
+//            ArrayList<Integer> passengerBags = new ArrayList<>();
+//
+//            //assigning random int between 1 and 3 inclusive, determining the amount of times the inner loop will run, and the number of bags that will be created
+//
+//            int jCounter = random.nextInt(3) + 1;
+//
+//            //inner loop, "j" representing the creation of a passenger's bag, and the element of that bag in the bags ArrayList
+//            //bagWeight represents the weight of a passenger's bag in pounds, 50 being the upper limit. All bags are between 20 and 50 pounds inclusive at the moment
+//
+//            for (int j = 0; j < jCounter; j++)
+//            {//begin inner for loop
+//
+//                int bagWeight = 0;
+//
+//                bagWeight = random.nextInt(30)+20;
+//
+//                passengerBags.add(bagWeight);
+//
+//            }//end inner for loop
+//
+//            //creating the Passenger objects and adding them to the passengers ArrayList
+//
+//            Passenger passenger = new Passenger(flightNumber, flightNumber + "_" + (i+1), passengerBags);
+//
+//            passengers.add(passenger);
+//
+//        }//end outer for loop
+//
+//    }//end fillPlane
+
+}//end Plane class
