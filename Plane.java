@@ -47,6 +47,12 @@ public class Plane
 
     private Flight flight;
 
+    private boolean print = false;
+
+    public void setPrint(boolean print) {
+        this.print = print;
+    }
+
     public void setFlight(Flight flight)
     {
 
@@ -107,8 +113,6 @@ public class Plane
 
         }
 
-        System.out.println(enRouteTime);
-
     }
 
     //Plane parameterized constructor for use by airlines
@@ -168,7 +172,10 @@ public class Plane
         {
 
             ps = planeStatus.TAXIING;
-            System.out.println(ps);
+
+            if(print == true)
+                System.out.println(ps);
+
             taxiingToRunwayTime--;
 
         }
@@ -179,7 +186,10 @@ public class Plane
             {
 
                 ps = planeStatus.TAKEING_OFF;
-                System.out.println(ps);
+
+                if(print == true)
+                    System.out.println(ps);
+
                 takeingOffTime--;
 
             }
@@ -198,7 +208,10 @@ public class Plane
             {
 
                 ps = planeStatus.EN_ROUTE;
+
+                if(print == true)
                 System.out.println(ps);
+
                 enRouteTime--;
 
             }
@@ -217,7 +230,10 @@ public class Plane
             {
 
                 ps = planeStatus.DESCENDING;
-                System.out.println(ps);
+
+                if(print == true)
+                    System.out.println(ps);
+
                 descendingTime--;
 
             }
@@ -236,7 +252,10 @@ public class Plane
             {
 
                 ps = planeStatus.LANDING;
-                System.out.println(ps);
+
+                if(print == true)
+                    System.out.println(ps);
+
                 landingTime--;
 
             }
@@ -255,9 +274,15 @@ public class Plane
             {
 
                 ps = planeStatus.LANDED;
-                System.out.println(ps);
+
+                if(print == true)
+                    System.out.println(ps);
+
                 ps = planeStatus.TAXIING_TO_GATE;
-                System.out.println(ps);
+
+                if(print == true)
+                    System.out.println(ps);
+
                 taxiingToGateTime--;
 
             }
@@ -276,8 +301,12 @@ public class Plane
             {
 
                 ps = planeStatus.AT_GATE;
-                System.out.println(ps);
-                System.out.println("Flight " + flight.getNumber() + " made it to the gate.");
+
+                if(print == true)
+                    System.out.println(ps);
+
+                if(print == true)
+                    System.out.println("Flight " + flight.getNumber() + " made it to the gate.");
 
             }
             else

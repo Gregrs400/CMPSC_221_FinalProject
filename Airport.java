@@ -89,10 +89,6 @@ public class Airport
 
         newDay(airlineOne, paxInAirport);
 
-        Plane plane = airlineOne.getAirlineFleet().get(0);
-
-        plane.setFlight(airlineOne.getFlights().get(2));
-
         //airlineOne.printPaxWithSameDest("Washington DC");
 
         airlineOne.getFlights().get(2).printFlight();
@@ -110,7 +106,7 @@ public class Airport
 
         //flight generation loop
 
-        for (int min = 0; min < 1440; min = min+(random.nextInt(15)+1))
+        for (int min = 600; min < 900; min = min+(random.nextInt(15)+1))
         {//begin flight generation loop
 
                 Plane plane = new Plane(airLine.getAirlineFleet().get(0).getPassengerCapacity());
@@ -137,15 +133,25 @@ public class Airport
 
         System.out.println("Flights: " + airLine.getFlights().size() + "\n");
 
+        airLine.getFlights().get(2).getPlane().setPrint(true);
+
         //actual airport operations loop
 
-        for (int min = 0; min < 4000; min++)
+        int paxGenerated, paxBeingGenerated;
+
+        paxGenerated = 0;
+
+        paxBeingGenerated = 10;
+
+        for (int min = 0; min < 1440; min++)
         {//begin outer for loop
 
-            if(paxInAirport.size() < 3000)
+            if(paxGenerated < (airLine.getFlights().size() * 50))
             {//begin passenger arrival iterator
 
-                paxArrival(airLine, paxInAirport, 10);
+                paxArrival(airLine, paxInAirport, paxBeingGenerated);
+
+                paxGenerated += paxBeingGenerated;
 
             }//end passenger arrival iterator
 
