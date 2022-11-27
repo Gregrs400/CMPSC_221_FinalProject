@@ -317,6 +317,7 @@ public class Airport
         // "Green Bay"
 
         destMap.get(2).get(10).add("Green Bay");
+
     }//end fillDestMap
 
     public static int[] findAirportCoords(String city)

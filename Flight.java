@@ -192,9 +192,9 @@ public class Flight
 
 
 
-        printTime("Departure", departureTimeHour, departureTimeMin);
+        printTime("Departure", departureTimeHour, departureTimeMin, departureTime);
 
-        printTime("Landing", landingTimeHour, landingTimeMin);
+        printTime("Landing", landingTimeHour, landingTimeMin, landingTime);
 
         System.out.println("Flight Status: " + fs);
 
@@ -202,47 +202,29 @@ public class Flight
 
         }
     
-    public void printTime(String status, int hour, int min)
-    {
+    public void printTime(String status, int hour, int min, int time)
+    {//begin printTime
 
-        if(hour < 12) {
-            if (hour == 0) {
-                if (min < 10) {
-                    System.out.println(status + " time: " + (hour + 12)
-                            + ":" + 0 + min + " AM");
-                } else {
-                    System.out.println(status + " time: " + (hour + 12)
-                            + ":" + min + " AM");
-                }
-            } else if (min < 10) {
-                System.out.println(status + " time: " + hour
-                        + ":" + 0 + min + " AM");
-            } else {
-                System.out.println(status + " time: " + hour
-                        + ":" + min + " AM");
-            }
-        }
+        String suffix, zero;
+
+        if (time > 719)
+            suffix = " PM";
         else
-        {
-                if(hour == 12)
-                {
-                    System.out.println(status + " time: " + hour
-                            + ":" + min + " PM");
-                }
-                else
-                if (min < 10)
-                {
-                    System.out.println(status + " time: " + (hour - 12)
-                            + ":" + 0 + min + " PM");
-                }
-                else
-                {
-                    System.out.println(status + " time: " + (hour - 12)
-                            + ":" + min + " PM");
-                }
+            suffix = " AM";
 
-            }    
-        
-    }
+        if (min < 10)
+            zero = "0";
+        else
+            zero = "";
+
+        if (time < 60)
+            hour = 12;
+
+        if (hour > 12)
+            hour -= 12;
+
+        System.out.println(status + " time: " + hour + ":" + zero + min + suffix);
+
+    }//end printTime
 
 }//end flight

@@ -162,7 +162,7 @@ public class Airline
             if(flights.get(i).getDestination() == destination)
             {//begin if statement
 
-                printFlight(i);
+                flights.get(i).printFlight();
 
             }//end if statement
 
@@ -193,62 +193,6 @@ public class Airline
         }
     }
 
-
-    //printFlight method to print all info about particular flight in flightsArrayList, as determined by int in call
-    public void printFlight(int element)
-    {
-
-        System.out.println("Flight Number: " + flights.get(element).getNumber());
-        System.out.println("Destination: " + flights.get(element).getDestination());
-
-        if(flights.get(element).getDepartureTimeHour() < 12)
-            if(flights.get(element).getDepartureTimeHour() == 0) {
-                if (flights.get(element).getDepartureTimeMin() < 10)
-                {
-                    System.out.println("Flight " + (element + 1) + " departure time: " + (flights.get(element).getDepartureTimeHour() + 12)
-                            + ":" + 0 + flights.get(element).getDepartureTimeMin() + " AM");
-                }
-                else
-                {
-                    System.out.println("Flight " + (element + 1) + " departure time: " + (flights.get(element).getDepartureTimeHour() + 12)
-                            + ":" + flights.get(element).getDepartureTimeMin() + " AM");
-                }
-            }
-            else
-                if (flights.get(element).getDepartureTimeMin() < 10)
-                {
-                    System.out.println("Flight " + (element + 1) + " departure time: " + flights.get(element).getDepartureTimeHour()
-                            + ":" + 0 + flights.get(element).getDepartureTimeMin() + " AM");
-                }
-                else
-                {
-                System.out.println("Flight " + (element+1) + " departure time: " + flights.get(element).getDepartureTimeHour()
-                        + ":" + flights.get(element).getDepartureTimeMin() + " AM");
-                }
-        else
-        {
-            if(flights.get(element).getDepartureTimeHour() == 12)
-            {
-                System.out.println("Flight " + (element + 1) + " departure time: " + flights.get(element).getDepartureTimeHour()
-                        + ":" + flights.get(element).getDepartureTimeMin() + " PM");
-            }
-            else
-                if (flights.get(element).getDepartureTimeMin() < 10)
-                {
-                    System.out.println("Flight " + (element + 1) + " departure time: " + (flights.get(element).getDepartureTimeHour() - 12)
-                            + ":" + 0 + flights.get(element).getDepartureTimeMin() + " PM");
-                }
-                else
-                {
-                    System.out.println("Flight " + (element + 1) + " departure time: " + (flights.get(element).getDepartureTimeHour() - 12)
-                            + ":" + flights.get(element).getDepartureTimeMin() + " PM");
-                }
-
-        }
-
-        System.out.println();
-    }
-
     public Flight paxFlightFromNum(Passenger passenger)
     {
         Flight flight = getFlightNumToFlight().get(passenger.getFlightNumber());
@@ -262,6 +206,5 @@ public class Airline
         destinations.remove(destination);
 
     }
-
 
 }//end Airline class
