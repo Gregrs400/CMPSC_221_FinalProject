@@ -60,6 +60,8 @@ public class Passenger extends Person
         return atGate;
     }
 
+    public void setAtGate(boolean atGate){this.atGate = atGate;}
+
     airportTravel at;
 
     Gate gate;
@@ -138,7 +140,7 @@ public class Passenger extends Person
     public void printPassenger()
     {
 
-        System.out.println("Passenger Flight Number: " + flightNumber);
+        System.out.println("\nPassenger Flight Number: " + flightNumber);
         System.out.println("Passenger ID: " + getId());
         System.out.println("Passenger destination: " + destination);
 
@@ -201,20 +203,6 @@ public class Passenger extends Person
         {
 
             securityToGate--;
-
-            if(securityToGate == 0)
-            {
-
-                at = airportTravel.AT_GATE;
-                atGate = true;
-
-            }
-
-        }
-        if(at.equals(airportTravel.AT_GATE))
-        {
-
-
 
         }
 

@@ -24,6 +24,8 @@ public class Flight
     //String object destination representing the destination of the flight
     private String destination;
 
+    private String originAirport;
+
     //random object being used to determine the flight status of a flight
         //planning to remove after time is implemented
 
@@ -33,7 +35,7 @@ public class Flight
 
     private Plane plane;
 
-    Gate gate = new Gate(50);
+    private Gate gate;
 
     flightStatus fs;
 
@@ -103,6 +105,10 @@ public class Flight
         this.destination = destination;
     }
 
+    public String getOriginAirport() {return originAirport;}
+
+    public void setOriginAirport(String originAirport) {this.originAirport = originAirport;}
+
     public Plane getPlane() {
         return plane;
     }
@@ -113,6 +119,11 @@ public class Flight
 
     public Gate getGate() {return gate; }
 
+    public void setGate(Gate gate)
+    {
+        this.gate = gate;
+        gate.gs = Gate.gateStatus.OCCUPIED;
+    }
     public int getDepartureTime() {return departureTime;}
     public void setDepartureTime(int departureTime) {this.departureTime = departureTime;}
 
@@ -124,16 +135,21 @@ public class Flight
         return paxWithTickets;
     }
 
+
+
     //Flight parameterized constructor, assigning a plane, a destination, a number, and the departure time of each flight
-    public Flight(Plane plane, String destination, int number, int departureTimeHour, int departureTimeMin, int departureTime)
+    public Flight(Plane plane, String destination, String originAirport, int number, int departureTimeHour, int departureTimeMin, int departureTime, Gate gate)
     {//begin Flight parameterized constructor
 
         setPlane(plane);
         setDestination(destination);
+        setOriginAirport(originAirport);
         setNumber(number);
         setDepartureTimeHour(departureTimeHour);
         setDepartureTimeMin(departureTimeMin);
         setDepartureTime(departureTime);
+        setGate(gate);
+        gate.setPlane(plane);
         fs = flightStatus.ONTIME;
 
     }//end Flight parameterized constructor
@@ -187,20 +203,20 @@ public class Flight
     public void printFlight()
     {
 
-        System.out.println("Flight Number: " +  number);
+        System.out.println("\nFlight Number: " + number);
+        System.out.println("Origin: " + originAirport);
         System.out.println("Destination: " + destination);
-
-
 
         printTime("Departure", departureTimeHour, departureTimeMin, departureTime);
 
         printTime("Landing", landingTimeHour, landingTimeMin, landingTime);
 
+        System.out.println("Gate: " + gate.getName());
+
         System.out.println("Flight Status: " + fs);
 
-        System.out.println();
 
-        }
+    }
     
     public void printTime(String status, int hour, int min, int time)
     {//begin printTime

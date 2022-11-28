@@ -102,7 +102,7 @@ public class Airline
 
     //generateFlight to create a flight for an airline, assigning each flight a plane, a destination, a flight number, and a departure time
 
-    public Flight generateFlight (Plane plane, int departHour, int departMin, int departTime)
+    public Flight generateFlight (Plane plane, String origin, int departHour, int departMin, int departTime, Gate gate)
     {//begin generateFlight
 
         Random random = new Random();
@@ -124,7 +124,7 @@ public class Airline
 
         destination = destinations.get(random.nextInt(destinations.size()));
 
-        Flight flight = new Flight(plane, destination, flightNumber, departHour, departMin, departTime);
+        Flight flight = new Flight(plane, destination, origin, flightNumber, departHour, departMin, departTime, gate);
 
         flights.add(flight);
 
@@ -200,8 +200,7 @@ public class Airline
         return flight;
     }
 
-    public void removeFromDestinations(String destination)
-    {
+    public void removeFromDestinations(String destination) {
 
         destinations.remove(destination);
 

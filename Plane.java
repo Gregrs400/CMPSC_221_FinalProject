@@ -60,6 +60,8 @@ public class Plane
 
     }
 
+    public Flight getFlight(){return flight;}
+
     public void setFlightTimes(int flightTime)
     {
 
@@ -121,6 +123,7 @@ public class Plane
 
         this.passengerCapacity = capacity;
         setPassengers(passengers);
+        ps = planeStatus.AT_DEPART_GATE;
 
     }//end Plane parameterized constructor
 
@@ -153,6 +156,7 @@ public class Plane
     enum planeStatus
     {
 
+        AT_DEPART_GATE,
         READY_TO_TAXI,
         TAXIING,
         TAKEING_OFF,
@@ -307,6 +311,8 @@ public class Plane
 
                 if(print == true)
                     System.out.println("Flight " + flight.getNumber() + " made it to the gate.");
+
+
 
             }
             else

@@ -12,12 +12,20 @@ public class Airport
 
     static Random random = new Random();
 
+    static ArrayList<Flight> flightsToDelete = new ArrayList<>();
+
     static ArrayList<ArrayList<ArrayList<String>>> destMap = new ArrayList<>();
 
     static ArrayList<ArrayList<Integer>> flightTimes = new ArrayList<>();
 
+    static ArrayList<Gate> gates = new ArrayList<>();
+
+    static int numOfGates;
+
     public static void main(String[] args)
     {//begin main method
+
+        numOfGates = 30;
 
         //Integer ArrayList flightNumbers to be passed to the Airline class during Airline construction
 
@@ -87,53 +95,48 @@ public class Airport
 
         ArrayList<Passenger> paxInAirport = new ArrayList<>();
 
-        newDay(airlineOne, paxInAirport);
+        newDay(airlineOne, airportLocation, paxInAirport);
 
-        //airlineOne.printPaxWithSameDest("Washington DC");
+        Flight flight = airlineOne.getFlights().get(2);
 
-        airlineOne.getFlights().get(2).printFlight();
+        flight.printFlight();
 
-        //airlineOne.printFlight(1);
+        Passenger passenger = flight.getPlane().getPassengers().get(2);
+
+        passenger.printPassenger();
+
+
 
     }//end main method
 
-    public static void newDay(Airline airLine, ArrayList<Passenger> paxInAirport)
+    public static void newDay(Airline airLine, String origin, ArrayList<Passenger> paxInAirport)
     {//begin newDay
 
+        for(int i = 0; i < numOfGates; i++)
+        {
+
+            Gate gate = new Gate(50, i+1 + "");
+
+            gate.gs = Gate.gateStatus.EMPTY;
+
+            gates.add(gate);
+
+        }
         //Passenger class object for accessing and updating passengers
 
         Passenger passengerUtility;
 
+        int minutes = 800;
         //flight generation loop
 
-        for (int min = 600; min < 900; min = min+(random.nextInt(15)+1))
+        for (int i = 0; (i < numOfGates && minutes < 1100); i++)
         {//begin flight generation loop
 
-                Plane plane = new Plane(airLine.getAirlineFleet().get(0).getPassengerCapacity());
+            genFlightAndInfo(airLine, origin, minutes, i);
 
-                Flight flight = airLine.generateFlight(plane, getHour(min), getMin(min), min);
-
-                int flightTime = generateLandingTime(flight.getDestination());
-
-                flight.setFlightTime(flightTime);
-
-                int landingTime = ((flight.getDepartureTime())+flightTime);
-
-                flight.setLandingTime(landingTime);
-
-                flight.setLandingTimeHour(getHour(landingTime));
-
-                flight.setLandingTimeMin(getMin(landingTime));
-
-                plane.setFlight(flight);
-
-                plane.setFlightTimes(flightTime);
+            minutes += random.nextInt(10)+1;
 
         }//end flight generation loop
-
-        System.out.println("Flights: " + airLine.getFlights().size() + "\n");
-
-        airLine.getFlights().get(2).getPlane().setPrint(true);
 
         //actual airport operations loop
 
@@ -146,7 +149,7 @@ public class Airport
         for (int min = 0; min < 1440; min++)
         {//begin outer for loop
 
-            if(paxGenerated < (airLine.getFlights().size() * 50))
+            if((paxGenerated < (airLine.getFlights().size() * 50)) && min < 1000)
             {//begin passenger arrival iterator
 
                 paxArrival(airLine, paxInAirport, paxBeingGenerated);
@@ -165,6 +168,10 @@ public class Airport
 
                     Flight paxFlight = airLine.paxFlightFromNum(passengerUtility);
 
+                    Plane paxPlane = paxFlight.getPlane();
+
+                    Gate paxGate = paxFlight.getGate();
+
                     if (!(passengerUtility.isAtGate()))
                     {//begin passenger time updater
 
@@ -172,10 +179,25 @@ public class Airport
 
                     }//end passenger time updater
 
-                    if (passengerUtility.isAtGate() && (min < paxFlight.getDepartureTime() - 15))
+                    if(passengerUtility.getSecurityToGate() == 0 && (!(passengerUtility.isAtGate())))
+                    {
+
+                        if(paxGate.getPaxAtGate().size() < paxGate.getSeats())
+                            paxGate.addPaxToGate(passengerUtility);
+
+                        passengerUtility.setAtGate(true);
+
+                        passengerUtility.at = Passenger.airportTravel.AT_GATE;
+
+                    }
+
+                    if (passengerUtility.isAtGate() && ((min > (paxFlight.getDepartureTime() - 15)) && min < paxFlight.getDepartureTime()))
                     {//begin if passenger can board plane
 
-                        paxFlight.getPlane().addPaxToPlane(passengerUtility);
+                        paxPlane.addPaxToPlane(passengerUtility);
+
+                        paxGate.getPaxAtGate().remove(passengerUtility);
+
                         paxInAirport.remove(passengerUtility);
 
                     }//end if passenger can board plane
@@ -191,16 +213,14 @@ public class Airport
                 {
 
                     flight.getPlane().ps = Plane.planeStatus.READY_TO_TAXI;
+
                     flight.getPlane().movePlane();
 
                 }
 
                 if(min > flight.getDepartureTime() && (!(flight.getPlane().ps.equals(Plane.planeStatus.AT_GATE))))
-                {
-
                     flight.getPlane().movePlane();
 
-                }
 
             }
 
@@ -397,6 +417,31 @@ public class Airport
             }
 
         }
+
+    }
+
+    public static void genFlightAndInfo(Airline airLine, String origin, int minutes, int gateIndex)
+    {
+
+        Plane plane = new Plane(airLine.getAirlineFleet().get(0).getPassengerCapacity());
+
+        Flight flight = airLine.generateFlight(plane, origin, getHour(minutes), getMin(minutes), minutes, gates.get(gateIndex));
+
+        int flightTime = generateLandingTime(flight.getDestination());
+
+        flight.setFlightTime(flightTime);
+
+        int landingTime = ((flight.getDepartureTime()) + flightTime);
+
+        flight.setLandingTime(landingTime);
+
+        flight.setLandingTimeHour(getHour(landingTime));
+
+        flight.setLandingTimeMin(getMin(landingTime));
+
+        plane.setFlight(flight);
+
+        plane.setFlightTimes(flightTime);
 
     }
 
