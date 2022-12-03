@@ -19,6 +19,7 @@ public class Airline
 
     private ArrayList<Flight> flights = new ArrayList<>();
 
+
     //Plane object ArrayList storing the different planes in an airline's fleet
 
     private ArrayList<Plane> airlineFleet = new ArrayList<>();
@@ -102,7 +103,7 @@ public class Airline
 
     //generateFlight to create a flight for an airline, assigning each flight a plane, a destination, a flight number, and a departure time
 
-    public Flight generateFlight (Plane plane, String origin, int departHour, int departMin, int departTime, Gate gate)
+    public Flight generateFlight(Plane plane, String origin, int departHour, int departMin, int departTime, Gate gate)
     {//begin generateFlight
 
         Random random = new Random();
@@ -116,7 +117,7 @@ public class Airline
         do
         {//begin do-while loop
 
-            flightNumber = random.nextInt(999)+1;
+            flightNumber = random.nextInt(9999)+1;
 
         }while(flightNumbers.contains(flightNumber)); //end do-while loop
 
@@ -153,8 +154,8 @@ public class Airline
 
     }//end printFlightNumbers
 
-    public void printAllFlights(String destination)
-    {//begin printAllFlights
+    public void printFlightsWithSameDest(String destination)
+    {//begin printFlightsWithSameDest
 
         for(int i = 0; i < flights.size(); i++)
         {//begin for loop
@@ -168,7 +169,38 @@ public class Airline
 
         }//end for loop
 
-    }//end printAllFlights
+    }//end printFlightsWithSameDest
+
+    public void printAllFlights()
+    {
+
+        for(Flight flight : flights)
+        {
+
+            flight.printFlight();
+
+        }
+
+    }
+
+    public int getPassengerTotal()
+    {
+
+        int passengerTotal = 0;
+
+        for(Flight flight : flights)
+        {
+
+            Plane flightPlane = flight.getPlane();
+
+            passengerTotal += flightPlane.getPassengers().size();
+
+
+        }
+
+        return passengerTotal;
+
+    }
 
 
 

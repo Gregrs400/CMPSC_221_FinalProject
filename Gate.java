@@ -1,5 +1,7 @@
 package FinalProject;
 
+import java.util.Deque;
+import java.util.LinkedList;
 import java.util.ArrayList;
 
 public class Gate
@@ -7,16 +9,42 @@ public class Gate
 
     private int seats;
 
+    Deque<Plane> planeQueue = new LinkedList<>();
+
     private String name;
 
     private Plane plane;
 
-    public Plane getPlane(){return plane;}
+    public Plane getPlane(){return planeQueue.peekLast();}
+
+    public void addPlane(Plane plane)
+    {
+
+        planeQueue.add(plane);
+
+        if(gs.equals(gateStatus.EMPTY))
+        {
+
+            setPlane(planeQueue.poll());
+
+        }
+
+    }
 
     public void setPlane(Plane plane)
     {
-        this.plane = plane;
+
+            this.plane = plane;
+
     }
+
+    public void grabAndSet()
+    {
+
+        setPlane(planeQueue.poll());
+
+    }
+
     public void setSeats(int seats)
     {
 

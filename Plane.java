@@ -17,6 +17,8 @@ public class Plane
 
     private int seatsTaken;
 
+    private int gateOccupationTime = 15;
+
     public ArrayList<Passenger> getPassengers() {
         return passengers;
     }
@@ -47,6 +49,17 @@ public class Plane
 
     private Flight flight;
 
+    private Gate gate;
+
+    private Airline airline;
+
+    public void setGate(Gate gate)
+    {
+
+        this.gate = gate;
+
+    }
+
     private boolean print = false;
 
     public void setPrint(boolean print) {
@@ -57,6 +70,13 @@ public class Plane
     {
 
         this.flight = flight;
+
+    }
+
+    public void setAirline(Airline airline)
+    {
+
+        this.airline = airline;
 
     }
 
@@ -183,6 +203,24 @@ public class Plane
             taxiingToRunwayTime--;
 
         }
+
+        if(gate.gs.equals(Gate.gateStatus.OCCUPIED))
+        {
+
+            gateOccupationTime--;
+
+            if(gateOccupationTime == 0)
+            {
+
+                gate.gs = Gate.gateStatus.EMPTY;
+
+                gate.grabAndSet();
+
+            }
+
+
+        }
+
         if(ps.equals(planeStatus.TAXIING))
         {
 

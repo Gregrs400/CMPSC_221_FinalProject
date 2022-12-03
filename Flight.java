@@ -121,8 +121,11 @@ public class Flight
 
     public void setGate(Gate gate)
     {
+
         this.gate = gate;
+
         gate.gs = Gate.gateStatus.OCCUPIED;
+
     }
     public int getDepartureTime() {return departureTime;}
     public void setDepartureTime(int departureTime) {this.departureTime = departureTime;}
@@ -149,7 +152,7 @@ public class Flight
         setDepartureTimeMin(departureTimeMin);
         setDepartureTime(departureTime);
         setGate(gate);
-        gate.setPlane(plane);
+        gate.addPlane(plane);
         fs = flightStatus.ONTIME;
 
     }//end Flight parameterized constructor
@@ -191,8 +194,6 @@ public class Flight
 
     }//end flightStatus enum
 
-
-
     public int getSeatsTakenOnFlight()
     {
 
@@ -223,7 +224,7 @@ public class Flight
 
         String suffix, zero;
 
-        if (time > 719)
+        if (time > 719 && time < 1440)
             suffix = " PM";
         else
             suffix = " AM";
