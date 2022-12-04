@@ -125,7 +125,7 @@ public class Passenger extends Person
         for (int j = 0; j < jCounter; j++)
         {//begin inner for loop
 
-            int bagWeight = 0;
+            int bagWeight;
 
             bagWeight = random.nextInt(30)+20;
 
@@ -141,7 +141,9 @@ public class Passenger extends Person
     {
 
         System.out.println("\nPassenger Flight Number: " + flightNumber);
+
         System.out.println("Passenger ID: " + getId());
+
         System.out.println("Passenger destination: " + destination);
 
         for(int i = 0; i < bags.size(); i++)
@@ -150,11 +152,6 @@ public class Passenger extends Person
             System.out.println("Bag " + (i+1) + " Weight: " + bags.get(i));
 
         }
-
-//        System.out.println("\nCurb To Check In: " + getCurbToCheckIn() + " minutes");
-//        System.out.println("Check In To Security: " + checkInToSecurity + " minutes");
-//        System.out.println("Security To Gate: " + securityToGate + " minutes");
-//        System.out.println("Gate To Plane: " + gateToPlane + " minutes");
 
     }
 

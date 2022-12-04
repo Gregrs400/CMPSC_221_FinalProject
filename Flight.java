@@ -7,39 +7,11 @@ public class Flight
 
     //integer variables which store different times
     private int departureTime;
+
+    public int getDepartureTime() {return departureTime;}
+
+    public void setDepartureTime(int departureTime) {this.departureTime = departureTime;}
     private int departureTimeHour;
-    private int departureTimeMin;
-
-    private int landingTime;
-    private int landingTimeHour;
-    private int landingTimeMin;
-
-    private int flightTime;
-    private int flightTimeHour;
-    private int flightTimeMin;
-
-    //int variable number representing the flight number
-    private int number;
-
-    //String object destination representing the destination of the flight
-    private String destination;
-
-    private String originAirport;
-
-    //random object being used to determine the flight status of a flight
-        //planning to remove after time is implemented
-
-    Random random = new Random();
-
-    //Plane object being used for Flight parameterized constructor
-
-    private Plane plane;
-
-    private Gate gate;
-
-    flightStatus fs;
-
-    private ArrayList<Passenger> paxWithTickets = new ArrayList<>();
 
     public int getDepartureTimeHour() {return departureTimeMin;}
 
@@ -47,77 +19,56 @@ public class Flight
         this.departureTimeHour = departureTimeHour;
     }
 
-    public int getDepartureTimeMin() {return departureTimeHour;}
+    private int departureTimeMin;
 
-    public void setDepartureTimeMin(int departureTimeMin) {
-        this.departureTimeMin = departureTimeMin;
-    }
+    public void setDepartureTimeMin(int departureTimeMin) {this.departureTimeMin = departureTimeMin;}
 
-    public int getLandingTimeHour() {
-        return landingTimeHour;
-    }
+    private int landingTime;
 
-    public void setLandingTimeHour(int landingTimeHour) {
-        this.landingTimeHour = landingTimeHour;
-    }
+    public void setLandingTime(int landingTime) {this.landingTime = landingTime;}
 
-    public int getLandingTimeMin() {
-        return landingTimeMin;
-    }
+    private int landingTimeHour;
 
-    public void setLandingTimeMin(int landingTimeMin) {
-        this.landingTimeMin = landingTimeMin;
-    }
+    public void setLandingTimeHour(int landingTimeHour) {this.landingTimeHour = landingTimeHour;}
 
-    public int getFlightTimeHour() {
-        return flightTimeHour;
-    }
+    private int landingTimeMin;
 
-    public void setFlightTimeHour(int flightTimeHour) {
-        this.flightTimeHour = flightTimeHour;
-    }
+    public void setLandingTimeMin(int landingTimeMin) {this.landingTimeMin = landingTimeMin;}
 
-    public int getFlightTimeMin() {
-        return flightTimeMin;
-    }
-
-    public void setFlightTimeMin(int flightTimeMin) {
-        this.flightTimeMin = flightTimeMin;
-    }
-
-    public int getFlightTime() {return flightTime; };
+    private int flightTime;
 
     public void setFlightTime(int flightTime) {this.flightTime = flightTime;}
 
-    public int getNumber() {
-        return number;
-    }
+    //int variable number representing the flight number
+    private int number;
 
-    public void setNumber(int number) {
-        this.number = number;
-    }
+    public int getNumber() {return number;}
 
-    public String getDestination() {
-        return destination;
-    }
+    public void setNumber(int number) {this.number = number;}
 
-    public void setDestination(String destination) {
-        this.destination = destination;
-    }
+    //String object destination representing the destination of the flight
 
-    public String getOriginAirport() {return originAirport;}
+    private String destination;
+
+    public String getDestination() {return destination;}
+
+    public void setDestination(String destination) {this.destination = destination;}
+
+    private String originAirport;
 
     public void setOriginAirport(String originAirport) {this.originAirport = originAirport;}
 
-    public Plane getPlane() {
-        return plane;
-    }
+    //Plane object being used for Flight parameterized constructor
 
-    public void setPlane(Plane plane) {
-        this.plane = plane;
-    }
+    private Plane plane;
 
-    public Gate getGate() {return gate; }
+    public Plane getPlane() {return plane;}
+
+    public void setPlane(Plane plane) {this.plane = plane;}
+
+    private Gate gate;
+
+    public Gate getGate() {return gate;}
 
     public void setGate(Gate gate)
     {
@@ -127,20 +78,15 @@ public class Flight
         gate.gs = Gate.gateStatus.OCCUPIED;
 
     }
-    public int getDepartureTime() {return departureTime;}
-    public void setDepartureTime(int departureTime) {this.departureTime = departureTime;}
 
-    public int getLandingTime() {return landingTime;}
+    private flightStatus fs;
 
-    public void setLandingTime(int landingTime) {this.landingTime = landingTime;}
+    private ArrayList<Passenger> paxWithTickets = new ArrayList<>();
 
-    public ArrayList<Passenger> getPaxWithTickets() {
-        return paxWithTickets;
-    }
-
-
+    public ArrayList<Passenger> getPaxWithTickets() {return paxWithTickets;}
 
     //Flight parameterized constructor, assigning a plane, a destination, a number, and the departure time of each flight
+
     public Flight(Plane plane, String destination, String originAirport, int number, int departureTimeHour, int departureTimeMin, int departureTime, Gate gate)
     {//begin Flight parameterized constructor
 
@@ -158,32 +104,31 @@ public class Flight
     }//end Flight parameterized constructor
 
     public boolean isSoldOut()
-    {
+    {//begin isSoldOut
 
         if(paxWithTickets.size() < plane.getPassengerCapacity())
-        {
+        {//begin if
 
             return false;
 
-        }
+        }//end if
         else
-        {
+        {//begin else
 
             return true;
 
-        }
+        }//end else
 
-    }
+    }//end isSoldOut
 
     public Flight()
-    {
+    {//begin Flight no args constructor
 
-
-
-    }
+    }//end Flight no args constructor
 
 
     //flight status enum to assign a flight status depending on the events of the flight
+
     enum flightStatus
     {//begin flightStatus enum
 
@@ -194,18 +139,15 @@ public class Flight
 
     }//end flightStatus enum
 
-    public int getSeatsTakenOnFlight()
-    {
-
-        return paxWithTickets.size();
-
-    }
+    public int getSeatsTakenOnFlight() {return paxWithTickets.size();}
 
     public void printFlight()
     {
 
         System.out.println("\nFlight Number: " + number);
+
         System.out.println("Origin: " + originAirport);
+
         System.out.println("Destination: " + destination);
 
         printTime("Departure", departureTimeHour, departureTimeMin, departureTime);
@@ -215,7 +157,6 @@ public class Flight
         System.out.println("Gate: " + gate.getName());
 
         System.out.println("Flight Status: " + fs);
-
 
     }
     

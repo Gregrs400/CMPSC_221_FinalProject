@@ -11,89 +11,44 @@ public class Airline
 
     private ArrayList<String> destinations = new ArrayList<>();
 
+    public void setDestinations(ArrayList<String> destinations) {this.destinations = destinations;}
+
     //Integer ArrayList of Flight Numbers of flights created by the airline
 
     private ArrayList<Integer> flightNumbers = new ArrayList<>();
+
+    public void setFlightNumbers(ArrayList<Integer> flightNumbers) {this.flightNumbers = flightNumbers;}
 
     //Flight object ArrayList storing the flights created by the airline
 
     private ArrayList<Flight> flights = new ArrayList<>();
 
+    public ArrayList<Flight> getFlights() {return flights;}
 
-    //Plane object ArrayList storing the different planes in an airline's fleet
+    //Plane object ArrayList storing the different plane models in an airline's fleet
 
     private ArrayList<Plane> airlineFleet = new ArrayList<>();
 
-    //Plane object ArrayList storing every plane utilized by an airline
+    public ArrayList<Plane> getAirlineFleet() {return airlineFleet;}
 
-    private ArrayList<Plane> rollingStock = new ArrayList<>();
+    //Hashmap allowing retrieval of Flight objects when given flight numbers
 
     private HashMap<Integer, Flight> flightNumToFlight = new HashMap<>();
 
+    public HashMap<Integer, Flight> getFlightNumToFlight() {return flightNumToFlight;}
+
     //Airline parameterized constructor
-
-
-    public ArrayList<String> getDestinations() {
-        return destinations;
-    }
-
-    public void setDestinations(ArrayList<String> destinations) {
-        this.destinations = destinations;
-    }
-
-    public ArrayList<Integer> getFlightNumbers() {
-        return flightNumbers;
-    }
-
-    public void setFlightNumbers(ArrayList<Integer> flightNumbers) {
-        this.flightNumbers = flightNumbers;
-    }
-
-    public ArrayList<Flight> getFlights() {
-        return flights;
-    }
-
-    public void setFlights(ArrayList<Flight> flights) {
-        this.flights = flights;
-    }
-
-    public ArrayList<Plane> getAirlineFleet() {
-        return airlineFleet;
-    }
-
-    public void setAirlineFleet(ArrayList<Plane> airlineFleet) {
-        this.airlineFleet = airlineFleet;
-    }
-
-    public ArrayList<Plane> getRollingStock() {
-        return rollingStock;
-    }
-
-    public void setRollingStock(ArrayList<Plane> rollingStock) {
-        this.rollingStock = rollingStock;
-    }
-
-    public HashMap<Integer, Flight> getFlightNumToFlight() {
-        return flightNumToFlight;
-    }
 
     public Airline(ArrayList<String> destinations, ArrayList<Integer> flightNumbers)
     {//begin Airline parameterized constructor
 
-        this.destinations = destinations;
-        this.flightNumbers = flightNumbers;
+        setDestinations(destinations);
+        setFlightNumbers(flightNumbers);
 
     }//end Airline parameterized constructor
 
-    //Airline default constructor
-
-    public Airline()
-    {//begin Airline default no args constructor
-
-
-    }//end Airline default no args constructor
-
     //addPlane to add a plane to an airline's fleet
+
     public void addPlane(Plane plane)
     {//begin addPlane
 
@@ -202,8 +157,6 @@ public class Airline
 
     }
 
-
-
     public Passenger getPassengerOnFlight(int flightElement, int passengerElement)
     {
 
@@ -211,15 +164,20 @@ public class Airline
 
     }
 
-    public void printPaxWithSameDest(String destination){
-        Passenger passenger;
+    public void printPaxWithSameDest(String destination)
+    {
 
-        for(int i = 0; i < flights.size(); i++){
-            if(flights.get(i).getDestination().equals(destination)){
-                for(int j = 0; j < flights.get(i).getSeatsTakenOnFlight(); j++){
-                    passenger = getPassengerOnFlight(i,j);
+        for(Flight flight : flights)
+        {
+
+            if(flight.getDestination().equals(destination))
+            {
+
+                for(Passenger passenger : flight.getPaxWithTickets())
+                {
+
                     passenger.printPassenger();
-                    System.out.println();
+
                 }
             }
         }
@@ -232,10 +190,11 @@ public class Airline
         return flight;
     }
 
-    public void removeFromDestinations(String destination) {
+    public void removeFromDestinations(String destination)
+    {//begin removeFromDestinations
 
         destinations.remove(destination);
 
-    }
+    }//end removeFromDestinations
 
 }//end Airline class

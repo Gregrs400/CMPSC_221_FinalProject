@@ -12,8 +12,6 @@ public class Airport
 
     static Random random = new Random();
 
-    static ArrayList<Flight> flightsToDelete = new ArrayList<>();
-
     static ArrayList<ArrayList<ArrayList<String>>> destMap = new ArrayList<>();
 
     static ArrayList<ArrayList<Integer>> flightTimes = new ArrayList<>();
@@ -76,7 +74,7 @@ public class Airport
 
         fillDestMap(destMap);
 
-        String airportLocation = "Philadelphia";
+        String airportLocation = "Seattle";
 
         int[] originCoords = findAirportCoords(airportLocation);
 
@@ -154,7 +152,7 @@ public class Airport
                     for (int j = 0; j < i; j++)
                     {
 
-                        if(minutes > gates.get(j).getPlane().getFlight().getDepartureTime() + 15)
+                        if(minutes > gates.get(j).getLastPlane().getFlight().getDepartureTime() + 15)
                             genFlightAndInfo(airLine, origin, minutes, gates.get(j));
 
                     }
@@ -189,7 +187,7 @@ public class Airport
 
         paxGenerated = 0;
 
-        paxBeingGenerated = 150;
+        paxBeingGenerated = 300;
 
         int totalPaxCapacity = airLine.getFlights().size() * 50;
 
@@ -262,7 +260,7 @@ public class Airport
                 if(gate.gs.equals(Gate.gateStatus.EMPTY))
                 {
 
-                    gate.grabAndSet();
+                    gate.nextPlane();
 
                 }
 
@@ -285,8 +283,6 @@ public class Airport
             }
 
         }//end outer for loop
-
-
 
     }//end newDay
 
@@ -503,8 +499,9 @@ public class Airport
 
     }
 
+    //method for creating flights, and setting the other fields associated with the Flight
     public static void genFlightAndInfo(Airline airLine, String origin, int minutes, Gate gate)
-    {
+    {//begin genFlightAndInfo
 
         Plane plane = new Plane(airLine.getAirlineFleet().get(0).getPassengerCapacity());
 
@@ -533,13 +530,12 @@ public class Airport
         plane.setAirline(airLine);
 
         for(int i = departureTime; i <= landingTime; i++)
-        {
+        {//begin movingPlanes addition for loop
 
             movingPlanes.get(i).add(flight);
 
-        }
+        }//end movingPlanes addition for loop
 
-
-    }
+    }//end genFlightAndInfo
 
 }//end Airport class

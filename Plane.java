@@ -12,12 +12,16 @@ public class Plane
     //declaring int variable to store how many passengers can board plane, defining characteristic of each plane
     private int passengerCapacity;
 
+    public int getPassengerCapacity() {
+        return passengerCapacity;
+    }
+
+    public void setPassengerCapacity(int passengerCapacity) {
+        this.passengerCapacity = passengerCapacity;
+    }
+
     //declaring Passenger type ArrayList for storing the Passenger objects on the plane
     private ArrayList<Passenger> passengers = new ArrayList<>();
-
-    private int seatsTaken;
-
-    private int gateOccupationTime = 15;
 
     public ArrayList<Passenger> getPassengers() {
         return passengers;
@@ -27,13 +31,7 @@ public class Plane
         this.passengers = passengers;
     }
 
-    public int getPassengerCapacity() {
-        return passengerCapacity;
-    }
-
-    public void setPassengerCapacity(int passengerCapacity) {
-        this.passengerCapacity = passengerCapacity;
-    }
+    private int seatsTaken;
 
     public int getSeatsTaken() {
         return seatsTaken;
@@ -43,28 +41,13 @@ public class Plane
         this.seatsTaken = seatsTaken;
     }
 
-    private int taxiingToRunwayTime, takeingOffTime, enRouteTime, descendingTime, landingTime, taxiingToGateTime;
+    private int gateOccupationTime = 15;
 
-    planeStatus ps;
+    private int taxiingToRunwayTime, takeingOffTime, enRouteTime, descendingTime, landingTime, taxiingToGateTime;
 
     private Flight flight;
 
-    private Gate gate;
-
-    private Airline airline;
-
-    public void setGate(Gate gate)
-    {
-
-        this.gate = gate;
-
-    }
-
-    private boolean print = false;
-
-    public void setPrint(boolean print) {
-        this.print = print;
-    }
+    public Flight getFlight(){return flight;}
 
     public void setFlight(Flight flight)
     {
@@ -73,6 +56,17 @@ public class Plane
 
     }
 
+    private Gate gate;
+
+    public void setGate(Gate gate)
+    {
+
+        this.gate = gate;
+
+    }
+
+    private Airline airline;
+
     public void setAirline(Airline airline)
     {
 
@@ -80,7 +74,11 @@ public class Plane
 
     }
 
-    public Flight getFlight(){return flight;}
+    private boolean print = false;
+
+    public void setPrint(boolean print) {
+        this.print = print;
+    }
 
     public void setFlightTimes(int flightTime)
     {
@@ -137,6 +135,24 @@ public class Plane
 
     }
 
+    enum planeStatus
+    {
+
+        AT_DEPART_GATE,
+        READY_TO_TAXI,
+        TAXIING,
+        TAKEING_OFF,
+        EN_ROUTE,
+        DESCENDING,
+        LANDING,
+        LANDED,
+        TAXIING_TO_GATE,
+        AT_GATE
+
+    }
+
+    planeStatus ps;
+
     //Plane parameterized constructor for use by airlines
     public Plane(int capacity)
     {//begin Plane parameterized constructor
@@ -173,22 +189,6 @@ public class Plane
 
     }//end isFull
 
-    enum planeStatus
-    {
-
-        AT_DEPART_GATE,
-        READY_TO_TAXI,
-        TAXIING,
-        TAKEING_OFF,
-        EN_ROUTE,
-        DESCENDING,
-        LANDING,
-        LANDED,
-        TAXIING_TO_GATE,
-        AT_GATE
-
-    }
-
     public void movePlane()
     {
 
@@ -214,7 +214,7 @@ public class Plane
 
                 gate.gs = Gate.gateStatus.EMPTY;
 
-                gate.grabAndSet();
+                gate.nextPlane();
 
             }
 

@@ -9,13 +9,13 @@ public class Gate
 
     private int seats;
 
+    public int getSeats(){return seats;}
+
+    public void setSeats(int seats) {
+        this.seats = seats;
+    }
+
     Deque<Plane> planeQueue = new LinkedList<>();
-
-    private String name;
-
-    private Plane plane;
-
-    public Plane getPlane(){return planeQueue.peekLast();}
 
     public void addPlane(Plane plane)
     {
@@ -31,34 +31,29 @@ public class Gate
 
     }
 
-    public void setPlane(Plane plane)
-    {
-
-            this.plane = plane;
-
-    }
-
-    public void grabAndSet()
+    public void nextPlane()
     {
 
         setPlane(planeQueue.poll());
 
     }
 
-    public void setSeats(int seats)
-    {
+    public Plane getLastPlane(){return planeQueue.peekLast();}
 
-        this.seats = seats;
-
-    }
-
-    gateStatus gs;
+    private String name;
 
     public String getName(){return name;}
 
     public void setName(String name){this.name = name;}
 
-    public int getSeats(){return seats;}
+    private Plane plane;
+
+    public void setPlane(Plane plane)
+    {
+
+            this.plane = plane;
+
+    }
 
     public Gate(int numOfSeats, String name)
     {//begin Gate parameterized constructor
@@ -86,5 +81,7 @@ public class Gate
         OCCUPIED
 
     }
+
+    gateStatus gs;
 
 }
