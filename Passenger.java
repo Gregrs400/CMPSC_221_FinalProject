@@ -92,8 +92,6 @@ public class Passenger extends Person
     public Passenger()
     {//begin Passenger default no args constructor
 
-
-
     }//end Passenger default no args constructor
 
     enum airportTravel
@@ -149,7 +147,7 @@ public class Passenger extends Person
         for(int i = 0; i < bags.size(); i++)
         {
 
-            System.out.println("Bag " + (i+1) + " Weight: " + bags.get(i));
+            System.out.println("Bag " + (i+1) + " Weight: " + bags.get(i) + " pounds");
 
         }
 
