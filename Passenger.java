@@ -89,6 +89,8 @@ public class Passenger extends Person
 
     private Gate gate;
 
+    private Ticket ticket;
+
 
     //Passenger parameterized constructor, assigning each passenger a flight number, an id, and 1-3 bags inclusive
 
@@ -101,6 +103,7 @@ public class Passenger extends Person
         bags = generatePassengerBags();
         commuteThroughAirport();
         this.gate = gate;
+        ticket = new Ticket();
 
         curbToCheckIn = getCurbToCheckIn();
         checkInToSecurity = getCheckInToSecurity();
@@ -128,6 +131,8 @@ public class Passenger extends Person
 
         System.out.println("Passenger ID: " + getId());
 
+        System.out.println("Ticket Number: " + ticket.ticketNum);
+
         System.out.println("Passenger destination: " + destination);
 
         for(int i = 0; i < bags.size(); i++)
@@ -136,6 +141,7 @@ public class Passenger extends Person
             System.out.println("Bag " + (i+1) + " Weight: " + bags.get(i) + " pounds");
 
         }//end for loop to print all passenger's bag weights
+
 
     }//end printPassenger
 
