@@ -2,7 +2,6 @@ package FinalProject;
 
 import java.text.DecimalFormat;
 
-
 public class Ticket {
 
     String ticketNum = "";
@@ -27,7 +26,4 @@ public class Ticket {
         ticketNum = "1" + String.valueOf(df.format(Math.random() *1000000000000L));
         return ticketNum;
     }
-
-
-
 }

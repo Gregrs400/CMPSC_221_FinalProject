@@ -4,197 +4,120 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
 
-public class Airline
-{//begin Airline class
+public class Airline {
 
-    //String ArrayList of destinations offered by an airline from this airport
-
+    //ARRAYLIST OF AVAILABLE DESTINATIONS FROM SPECIFIC AIRPORT
     private ArrayList<String> destinations = new ArrayList<>();
-
     public void setDestinations(ArrayList<String> destinations) {this.destinations = destinations;}
 
-    //Integer ArrayList of Flight Numbers of flights created by the airline
-
+    //ARRAYLIST FOR FLIGHT NUMBERS
     private ArrayList<Integer> flightNumbers = new ArrayList<>();
-
     public void setFlightNumbers(ArrayList<Integer> flightNumbers) {this.flightNumbers = flightNumbers;}
 
-    //Flight object ArrayList storing the flights created by the airline
-
+    //ARRAYLIST FOR FLIGHTS
     private ArrayList<Flight> flights = new ArrayList<>();
-
     public ArrayList<Flight> getFlights() {return flights;}
 
-    //Plane object ArrayList storing the different plane models in an airline's fleet
-
+    //ARRAYLIST FOR PLANE MODELS AND METHOD TO ADD PLANES
     private ArrayList<Plane> airlineFleet = new ArrayList<>();
-
     public ArrayList<Plane> getAirlineFleet() {return airlineFleet;}
 
-    //Hashmap allowing retrieval of Flight objects when given flight numbers
+    public void addPlane(Plane plane){
+        airlineFleet.add(plane);
+    }
 
+    //HASHMAP LINKING FLIGHT OBJ's TO FLIGHT NUMBERS
     private HashMap<Integer, Flight> flightNumToFlight = new HashMap<>();
-
     public HashMap<Integer, Flight> getFlightNumToFlight() {return flightNumToFlight;}
 
-    //Airline parameterized constructor
 
-    public Airline(ArrayList<String> destinations, ArrayList<Integer> flightNumbers)
-    {//begin Airline parameterized constructor
-
+    //PARAMETERIZED CONSTRUCTOR METHOD
+    public Airline(ArrayList<String> destinations, ArrayList<Integer> flightNumbers){
         setDestinations(destinations);
         setFlightNumbers(flightNumbers);
+    }
 
-    }//end Airline parameterized constructor
-
-    //addPlane to add a plane to an airline's fleet
-
-    public void addPlane(Plane plane)
-    {//begin addPlane
-
-        airlineFleet.add(plane);
-
-    }//end addPlane
 
     //generateFlight to create a flight for an airline, assigning each flight a plane, a destination, a flight number, and a departure time
-
-    public Flight generateFlight(Plane plane, String origin, int departHour, int departMin, int departTime, Gate gate)
-    {//begin generateFlight
+    public Flight generateFlight(Plane plane, String origin, int departHour, int departMin, int departTime, Gate gate) {
 
         Random random = new Random();
-
         String destination;
-
         int flightNumber = 0;
 
         //do-while loop to ensure each flight number is unique
-
-        do
-        {//begin do-while loop
-
+        do{
             flightNumber = random.nextInt(9999)+1;
-
-        }while(flightNumbers.contains(flightNumber)); //end do-while loop
+        }while(flightNumbers.contains(flightNumber));
 
         flightNumbers.add(flightNumber);
-
         destination = destinations.get(random.nextInt(destinations.size()));
-
         Flight flight = new Flight(plane, destination, origin, flightNumber, departHour, departMin, departTime, gate);
-
         flights.add(flight);
-
         flightNumToFlight.put(flight.getNumber(), flight);
 
         return flight;
-
     }
 
     //printFlightNumbers method to print any flight numbers in the flights ArrayList that match the destination in the call
+    public void printFlightNumbers(String destination) {
 
-    public void printFlightNumbers(String destination)
-    {//begin printFlightNumbers
+        for(int i = 0; i < flights.size(); i++) {
 
-        for(int i = 0; i < flights.size(); i++)
-        {//begin for loop
-
-            if(flights.get(i).getDestination() == destination)
-            {//begin if statement
-
+            if(flights.get(i).getDestination() == destination) {
                 System.out.println(flights.get(i).getNumber());
-
-            }//end if statement
-
-        }//end for loop
-
-    }//end printFlightNumbers
-
-    public void printFlightsWithSameDest(String destination)
-    {//begin printFlightsWithSameDest
-
-        for(int i = 0; i < flights.size(); i++)
-        {//begin for loop
-
-            if(flights.get(i).getDestination() == destination)
-            {//begin if statement
-
-                flights.get(i).printFlight();
-
-            }//end if statement
-
-        }//end for loop
-
-    }//end printFlightsWithSameDest
-
-    public void printAllFlights()
-    {
-
-        for(Flight flight : flights)
-        {
-
-            flight.printFlight();
-
+            }
         }
-
     }
 
-    public int getPassengerTotal()
-    {
+    public void printFlightsWithSameDest(String destination) {
+
+        for(int i = 0; i < flights.size(); i++) {
+
+            if(flights.get(i).getDestination() == destination) {
+                flights.get(i).printFlight();
+            }
+        }
+    }
+
+    public void printAllFlights() {
+        for(Flight flight : flights) {
+            flight.printFlight();
+        }
+    }
+
+    public int getPassengerTotal() {
 
         int passengerTotal = 0;
 
-        for(Flight flight : flights)
-        {
-
+        for(Flight flight : flights) {
             Plane flightPlane = flight.getPlane();
-
             passengerTotal += flightPlane.getPassengers().size();
-
-
         }
 
         return passengerTotal;
-
     }
 
-    public Passenger getPassengerOnFlight(int flightElement, int passengerElement)
-    {
-
+    public Passenger getPassengerOnFlight(int flightElement, int passengerElement) {
         return getFlights().get(flightElement).getPaxWithTickets().get(passengerElement);
-
     }
 
-    public void printPaxWithSameDest(String destination)
-    {
-
-        for(Flight flight : flights)
-        {
-
-            if(flight.getDestination().equals(destination))
-            {
-
-                for(Passenger passenger : flight.getPaxWithTickets())
-                {
-
+    public void printPaxWithSameDest(String destination) {
+        for(Flight flight : flights) {
+            if(flight.getDestination().equals(destination)) {
+                for(Passenger passenger : flight.getPaxWithTickets()) {
                     passenger.printPassenger();
-
                 }
             }
         }
     }
 
-    public Flight paxFlightFromNum(Passenger passenger)
-    {
+    public Flight paxFlightFromNum(Passenger passenger) {
         Flight flight = getFlightNumToFlight().get(passenger.getFlightNumber());
-
         return flight;
     }
 
-    public void removeFromDestinations(String destination)
-    {//begin removeFromDestinations
-
+    public void removeFromDestinations(String destination) {
         destinations.remove(destination);
-
-    }//end removeFromDestinations
-
-}//end Airline class
+    }
+}
