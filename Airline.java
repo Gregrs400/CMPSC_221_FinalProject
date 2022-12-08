@@ -71,11 +71,11 @@ public class Airline {
     }
 
     public void printFlightsWithSameDest(String destination) {
-
         for(int i = 0; i < flights.size(); i++) {
-
             if(flights.get(i).getDestination() == destination) {
+
                 flights.get(i).printFlight();
+
             }
         }
     }

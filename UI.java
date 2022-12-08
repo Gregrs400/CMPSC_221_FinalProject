@@ -12,15 +12,30 @@ public class UI implements ActionListener {
     public static Airport airport = new Airport();
     public static Passenger user = new Passenger();
 
+
     //UI VARIABLES
     private JLabel originLabel, destinationLabel, label, check;
     private JFrame frame;
     private JPanel comboStuff, returns;
     private JButton button;
-    private ImageIcon map;
     private JComboBox origin, destination;
+    private JList listFlights;
     public static String airportLocation;
-    public static int flightDuration;
+
+
+    //CREATING AIRPORT OBJECT FLIGHTNUMBER/DESTINATIONS USED TO
+    public static ArrayList<Integer> flightNumbers = new ArrayList<>();
+    public static ArrayList<String> alOneDestinations = new ArrayList<>(Arrays.asList(
+            "Miami", "Charlotte", "Harrisburg", "Washington DC", "Baltimore", "Jacksonville",
+            "Indianapolis", "Fort Lauderdale", "Savannah", "Roanoke", "Detroit", "Tampa", "Atlanta", "Orlando",
+            "Los Angeles", "Denver", "San Francisco", "West Palm Beach", "San Jose", "Seattle", "Portland", "Dallas",
+            "Austin", "Houston", "Daytona Beach", "Newark", "New York City", "Cincinnati", "Des Moines", "San Diego",
+            "Minneapolis", "Phoenix", "Las Vegas", "Boston", "Philadelphia", "Nashville", "Chicago",
+            "Key West", "New Orleans", "Birmingham", "Albuquerque", "Oklahoma City", "St. Louis", "Kansas City",
+            "Milwaukee", "Boise", "San Antonio", "Jackson", "Memphis", "Huntsville", "Fort Meyers", "Louisville",
+            "Green Bay"));
+
+    public static Airline airLineOne = new Airline(alOneDestinations, flightNumbers);
 
     String destinations[] = {"Select Destination", "Miami", "Charlotte", "Harrisburg", "Washington DC", "Baltimore", "Jacksonville",
             "Indianapolis", "Fort Lauderdale", "Savannah", "Roanoke", "Detroit", "Tampa", "Atlanta", "Orlando",
@@ -30,31 +45,7 @@ public class UI implements ActionListener {
             "Key West", "New Orleans", "Birmingham", "Albuquerque", "Oklahoma City", "St. Louis", "Kansas City",
             "Milwaukee", "Boise", "San Antonio", "Jackson", "Memphis", "Huntsville", "Fort Meyers", "Louisville",
             "Green Bay"};
-    /*
-    UI WITH MAP
-    public UI(){
-        label = new JLabel("Hello there");
-        frame = new JFrame();
-        panel = new JPanel();
-        map = new ImageIcon("Map_Of_US.png");
 
-        button = new JButton();
-        button.addActionListener(this);
-
-        panel.setBorder(BorderFactory.createEmptyBorder(30,30,30,30));
-        panel.setLayout(new GridLayout(3,3));
-        panel.add(button);
-        panel.add(label, BorderLayout.CENTER);
-
-        frame.add(panel, BorderLayout.CENTER);
-        frame.add(new JLabel(map));
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setTitle("TITLE HERE");
-        frame.pack();
-        frame.setVisible(true);
-    }
-
-     */
 
     public UI(){
         //DEFINING VARIABLES
@@ -62,23 +53,22 @@ public class UI implements ActionListener {
         destination = new JComboBox(destinations);
         check = new JLabel();
         check.setVisible(false);
-        originLabel = new JLabel("Flight Origin");
         label = new JLabel("Please choose origin and destination airports");
+        originLabel = new JLabel("Flight Origin");
         destinationLabel = new JLabel("Flight Destination");
         frame = new JFrame("CMPSC221 Final Project");
         comboStuff = new JPanel();
         returns = new JPanel();
-        button = new JButton("Button Text Here");
+        button = new JButton("FIND FLIGHTS");
 
         //button.addActionListener(this);
 
-        //COMBO BOXES
+        //LEFT PANEL -- INPUT VALUES
         origin.setBounds(0, 50, 150, 25);
         originLabel.setBounds(30,30,150,25);
         destination.setBounds(200, 50, 150, 25);
         destinationLabel.setBounds(230,30,150,25);
 
-        //comboStuff.setBounds(40,5,);
         comboStuff.setBackground(Color.lightGray);
         comboStuff.setLayout(null);
         comboStuff.add(destination);
@@ -92,7 +82,7 @@ public class UI implements ActionListener {
         comboStuff.add(button);
 
 
-        //RETURN VALUES
+        //RIGHT PANEL -- RETURN VALUES
         label.setBounds(30,50,300,25);
         check.setBounds(10, 100,150,25);
         returns.setLayout(null);
@@ -105,7 +95,8 @@ public class UI implements ActionListener {
         frame.setLayout(new GridLayout(0,2));
         frame.add(comboStuff);
         frame.add(returns);
-        frame.setSize(800,400);
+        frame.setSize(1000,250);
+        frame.pack();
         frame.setVisible(true);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -122,46 +113,21 @@ public class UI implements ActionListener {
         } else if(origin.getSelectedItem() == destination.getSelectedItem()){
             label.setText("Cannot select same origin and destination");
         } else {
-            label.setText("Origin: " + origin.getSelectedItem() + "\n Destination: " + destination.getSelectedItem());
+            label.setText("Origin: " + origin.getSelectedItem() + "       Destination: " + destination.getSelectedItem());
             airportLocation = origin.getSelectedItem().toString();
             user.setDestination(destination.getSelectedItem().toString());
 
-            check.setText(user.getDestination());
+            listFlights = new JList();
+            airLineOne.printFlightsWithSameDest(destination.getSelectedItem().toString());
             check.setVisible(true);
-
-            flightDuration = airport.generateLandingTime(destination.getSelectedItem().toString());
-            user.printPassenger();
-
         }
     }
 
     public static void main(String[] args) {
         //GUI STUFF
         new UI();
-        System.out.println(Airport.destMap);
-
-
 
         airport.numOfGates = 50;
-
-        //Integer ArrayList flightNumbers to be passed to the FinalProject.Airline class during FinalProject.Airline construction
-        ArrayList<Integer> flightNumbers = new ArrayList<>();
-
-        //String ArrayList alOneDestinations, representing the destinations served by FinalProject.Airline One
-        //Adding the destinations for FinalProject.Airline One to the alOneDestinations ArrayList
-
-        ArrayList<String> alOneDestinations = new ArrayList<>(Arrays.asList("Miami", "Charlotte", "Harrisburg", "Washington DC", "Baltimore", "Jacksonville",
-                "Indianapolis", "Fort Lauderdale", "Savannah", "Roanoke", "Detroit", "Tampa", "Atlanta", "Orlando",
-                "Los Angeles", "Denver", "San Francisco", "West Palm Beach", "San Jose", "Seattle", "Portland", "Dallas",
-                "Austin", "Houston", "Daytona Beach", "Newark", "New York City", "Cincinnati", "Des Moines", "San Diego",
-                "Minneapolis", "Phoenix", "Las Vegas", "Boston", "Philadelphia", "Nashville", "Chicago",
-                "Key West", "New Orleans", "Birmingham", "Albuquerque", "Oklahoma City", "St. Louis", "Kansas City",
-                "Milwaukee", "Boise", "San Antonio", "Jackson", "Memphis", "Huntsville", "Fort Meyers", "Louisville",
-                "Green Bay"));
-
-        //Creating the FinalProject.Airline object for FinalProject.Airline One, passing the destinations and flightNumbers ArrayLists
-        Airline airlineOne = new Airline(alOneDestinations, flightNumbers);
-
         //determining location of airport and making flight times to other airports
         for(int i = 0; i < 9; i++) {
             airport.destMap.add(new ArrayList<>());
@@ -178,7 +144,7 @@ public class UI implements ActionListener {
         //String airportLocation = "";
 
         int[] originCoords = airport.findAirportCoords(UI.airportLocation);
-        airlineOne.removeFromDestinations(airportLocation);
+        airLineOne.removeFromDestinations(airportLocation);
 
         int[] mapSize = {airport.destMap.size(), airport.destMap.get(0).size()};
         airport.generateFlightTimesAL(originCoords, mapSize);
@@ -188,18 +154,19 @@ public class UI implements ActionListener {
         Plane plane2 = new Plane(100);
 
         //adding plane1/plane2 to airlineOne's fleet
-        airlineOne.addPlane(plane1);
-        airlineOne.addPlane(plane2);
+        airLineOne.addPlane(plane1);
+        airLineOne.addPlane(plane2);
 
         ArrayList<Passenger> paxInAirport = new ArrayList<>();
-        paxInAirport.add(user);
-        airport.newDay(airlineOne, airportLocation, paxInAirport);
-        Flight flight = airlineOne.getFlights().get(2);
+        //paxInAirport.add(user);
+        airport.newDay(airLineOne, airportLocation, paxInAirport);
 
-        //flight.printFlight();
-        Passenger passenger = flight.getPlane().getPassengers().get(2);
-        passenger.printPassenger();
-        System.out.println("\nNum of Flights: " + airlineOne.getFlights().size());
-        System.out.println("Total pax: " + airlineOne.getPassengerTotal());
+//        Flight flight = airLineOne.getFlights().get(2);
+//        flight.printFlight();
+//        Passenger passenger = flight.getPlane().getPassengers().get(2);
+//        passenger.printPassenger();
+//        System.out.println("\nNum of Flights: " + airLineOne.getFlights().size());
+//        System.out.println("Total pax: " + airLineOne.getPassengerTotal());
+
     }
 }

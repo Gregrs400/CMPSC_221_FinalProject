@@ -42,15 +42,15 @@ public class Airport {
                 }
             }//end flight generator before all gates have been assigned
 
-            if(i > gates.size()) {//begin if all gates have been assigned a plane
+            //begin if all gates have been assigned a plane
+            if(i > gates.size()) {
 
                 for(Gate gate : gates)
                 {//begin additional flight creator
 
                     int gateFlightDepTime = gate.planeQueue.peekLast().getFlight().getDepartureTime();
 
-                    if(minutes > (gateFlightDepTime)+15)
-                    {//begin flight generator when gate will be empty for 15 min
+                    if(minutes > (gateFlightDepTime)+15) {//begin flight generator when gate will be empty for 15 min
                         genFlightAndInfo(airLine, origin, minutes, gate);
                     }//end flight generator when gate will be empty for 15 min
                 }//end additional flight creator
