@@ -20,6 +20,7 @@ public class UI implements ActionListener {
     private JButton button;
     private JComboBox origin, destination;
     private JList listFlights;
+    private JScrollPane scrollPane;
     private static String airportLocation;
 
 
@@ -116,8 +117,12 @@ public class UI implements ActionListener {
             airportLocation = origin.getSelectedItem().toString();
             user.setDestination(destination.getSelectedItem().toString());
 
-            listFlights = new JList();
+            listFlights = new JList(airLineOne.flightsWithSameDestForUi(destination.getSelectedItem().toString(), origin.getSelectedItem().toString()));
             airLineOne.printFlightsWithSameDest(destination.getSelectedItem().toString(), origin.getSelectedItem().toString());
+            scrollPane = new JScrollPane(listFlights);
+            scrollPane.setBounds(0, 200, 200,200);
+            returns.add(scrollPane);
+            scrollPane.setVisible(true);
             check.setVisible(true);
         }
     }
@@ -159,6 +164,8 @@ public class UI implements ActionListener {
         ArrayList<Passenger> paxInAirport = new ArrayList<>();
         //paxInAirport.add(user);
         airport.newDay(airLineOne, airportLocation, paxInAirport);
+
+        user.printPassenger();
 
 //        Flight flight = airLineOne.getFlights().get(2);
 //        flight.printFlight();

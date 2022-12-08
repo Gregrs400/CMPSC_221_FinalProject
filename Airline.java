@@ -82,6 +82,30 @@ public class Airline {
         }
     }
 
+    public String[] flightsWithSameDestForUi(String destination, String origin)
+    {
+
+        ArrayList<String> uiFlights = new ArrayList<>();
+
+        for(int i = 0; i < flights.size(); i++) {
+            if(flights.get(i).getDestination() == destination) {
+
+                flights.get(i).setOriginAirport(origin);
+
+                Flight currentFlight = flights.get(i);
+
+                String flightForUI = String.valueOf(currentFlight.getNumber()) + " " +
+                        currentFlight.returnTime("Departure", currentFlight.getDepartureTimeHour(), currentFlight.getDepartureTimeMin(), currentFlight.getDepartureTime())
+                        + " " + currentFlight.returnTime("Landing", currentFlight.getLandingTimeHour(), currentFlight.getLandingTimeMin(), currentFlight.getLandingTime())
+                        + " " + currentFlight.getGate().getName();
+
+                uiFlights.add(flightForUI);
+            }
+        }
+
+        return (String[]) uiFlights.toArray();
+    }
+
     public void printAllFlights() {
         for(Flight flight : flights) {
             flight.printFlight();
@@ -121,5 +145,6 @@ public class Airline {
 
     public void removeFromDestinations(String destination) {
         destinations.remove(destination);
+
     }
 }

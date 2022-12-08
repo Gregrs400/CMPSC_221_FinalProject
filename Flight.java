@@ -38,13 +38,34 @@ public class Flight {
     public int getDepartureTime() {return departureTime;}
     public void setDepartureTime(int departureTime) {this.departureTime = departureTime;}
 
-    public int getDepartureTimeHour() {return departureTimeMin;}
+    public int getDepartureTimeHour() {return departureTimeHour;}
+
+
     public void setDepartureTimeHour(int departureTimeHour) {
         this.departureTimeHour = departureTimeHour;
     }
+
+    public int getDepartureTimeMin() {
+        return departureTimeMin;
+    }
+
     public void setDepartureTimeMin(int departureTimeMin) {this.departureTimeMin = departureTimeMin;}
 
     //LANDING TIME METHODS
+
+
+    public int getLandingTime() {
+        return landingTime;
+    }
+
+    public int getLandingTimeHour() {
+        return landingTimeHour;
+    }
+
+    public int getLandingTimeMin() {
+        return landingTimeMin;
+    }
+
     public void setLandingTime(int landingTime) {this.landingTime = landingTime;}
     public void setLandingTimeHour(int landingTimeHour) {this.landingTimeHour = landingTimeHour;}
     public void setLandingTimeMin(int landingTimeMin) {this.landingTimeMin = landingTimeMin;}
@@ -120,7 +141,7 @@ public class Flight {
         System.out.println("Gate: " + gate.getName());
         System.out.println("Flight Status: " + fs);
     }
-    
+
     public void printTime(String status, int hour, int min, int time) {
         String suffix, zero;
         if (time > 719 && time < 1440)
@@ -140,5 +161,26 @@ public class Flight {
             hour -= 12;
 
         System.out.println(status + " time: " + hour + ":" + zero + min + suffix);
+    }
+
+    public String returnTime(String status, int hour, int min, int time) {
+        String suffix, zero;
+        if (time > 719 && time < 1440)
+            suffix = " PM";
+        else
+            suffix = " AM";
+
+        if (min < 10)
+            zero = "0";
+        else
+            zero = "";
+
+        if (time < 60)
+            hour = 12;
+
+        if (hour > 12)
+            hour -= 12;
+
+        return (status + " time: " + hour + ":" + zero + min + suffix);
     }
 }
