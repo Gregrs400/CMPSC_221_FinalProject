@@ -137,7 +137,9 @@ public class Airport {
         }//end outer for loop
     }//end newDay
 
+
     public static void paxArrival(Airline airline, ArrayList<Passenger> paxInAirport, int pax) {
+
         ArrayList<Flight> airlineFlights = airline.getFlights();
 
         for (int i = 0; i < pax; i++) {
@@ -153,6 +155,23 @@ public class Airport {
             paxInAirport.add(passenger);
             ranFlight.getPaxWithTickets().add(passenger);
         }
+
+    }
+
+    public void userArrival(Airline airline, ArrayList<Passenger> paxInAirport, int flightNum)
+    {
+
+        ArrayList<Flight> airlineFlights = airline.getFlights();
+
+        Flight userFlight = airline.getFlightNumToFlight().get(flightNum);
+
+        Passenger user = new Passenger(userFlight.getNumber(), userFlight.getDestination(), (userFlight.getNumber() +
+                "_" + (userFlight.getPaxWithTickets().size() + 1)), userFlight.getGate());
+
+        paxInAirport.add(user);
+
+        userFlight.getPaxWithTickets().add(user);
+
     }
 
     public static int getHour(int minutes) {
