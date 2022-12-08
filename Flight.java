@@ -1,10 +1,12 @@
 package FinalProject;
+import javax.swing.*;
 import java.util.*;
 
 public class Flight {
     //INSTANTIATING OTHER CLASSES
     private Plane plane;
     private Gate gate;
+    public JList flights = new JList();
 
 
     //FLIGHT INFO VARIABLES

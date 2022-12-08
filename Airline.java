@@ -1,10 +1,12 @@
 package FinalProject;
 
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
 
 public class Airline {
+    public JList returnFLights = new JList();
 
     //ARRAYLIST OF AVAILABLE DESTINATIONS FROM SPECIFIC AIRPORT
     private ArrayList<String> destinations = new ArrayList<>();
@@ -70,10 +72,10 @@ public class Airline {
         }
     }
 
-    public void printFlightsWithSameDest(String destination) {
+    public void printFlightsWithSameDest(String destination, String origin) {
         for(int i = 0; i < flights.size(); i++) {
             if(flights.get(i).getDestination() == destination) {
-
+                flights.get(i).setOriginAirport(origin);
                 flights.get(i).printFlight();
 
             }

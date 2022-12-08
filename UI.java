@@ -20,7 +20,7 @@ public class UI implements ActionListener {
     private JButton button;
     private JComboBox origin, destination;
     private JList listFlights;
-    public static String airportLocation;
+    private static String airportLocation;
 
 
     //CREATING AIRPORT OBJECT FLIGHTNUMBER/DESTINATIONS USED TO
@@ -77,7 +77,7 @@ public class UI implements ActionListener {
         comboStuff.add(originLabel);
 
         //BUTTON STUFF
-        button.setBounds(120,100,150,25);
+        button.setBounds(100,100,150,25);
         button.addActionListener(this);
         comboStuff.add(button);
 
@@ -88,15 +88,14 @@ public class UI implements ActionListener {
         returns.setLayout(null);
         returns.add(label);
         returns.add(check);
-        returns.setBackground(Color.gray);
+        returns.setBackground(Color.lightGray);
 
 
         //ADD TO FRAME
         frame.setLayout(new GridLayout(0,2));
+        frame.setSize(800,180);
         frame.add(comboStuff);
         frame.add(returns);
-        frame.setSize(1000,250);
-        frame.pack();
         frame.setVisible(true);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -118,7 +117,7 @@ public class UI implements ActionListener {
             user.setDestination(destination.getSelectedItem().toString());
 
             listFlights = new JList();
-            airLineOne.printFlightsWithSameDest(destination.getSelectedItem().toString());
+            airLineOne.printFlightsWithSameDest(destination.getSelectedItem().toString(), origin.getSelectedItem().toString());
             check.setVisible(true);
         }
     }
