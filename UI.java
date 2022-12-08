@@ -15,8 +15,8 @@ public class UI implements ActionListener {
 
     //UI VARIABLES
     private JLabel originLabel, destinationLabel, label, check;
-    private JFrame frame;
-    private JPanel comboStuff, returns;
+    private JFrame mainFrame;
+    private JPanel leftPanel, rightPanel;
     private JButton button;
     private JComboBox origin, destination;
     private JList listFlights;
@@ -24,7 +24,7 @@ public class UI implements ActionListener {
     private static String airportLocation;
 
 
-    //CREATING AIRPORT OBJECT FLIGHTNUMBER/DESTINATIONS USED TO
+    //CREATING AIRPORT OBJECT AND FLIGHTNUMBER/DESTINATIONS PARAMETERS
     public static ArrayList<Integer> flightNumbers = new ArrayList<>();
     public static ArrayList<String> alOneDestinations = new ArrayList<>(Arrays.asList(
             "Miami", "Charlotte", "Harrisburg", "Washington DC", "Baltimore", "Jacksonville",
@@ -38,6 +38,7 @@ public class UI implements ActionListener {
 
     public static Airline airLineOne = new Airline(alOneDestinations, flightNumbers);
 
+    //ADDING DESTINATIONS FOR COMBO BOXES
     String destinations[] = {"Select Destination", "Miami", "Charlotte", "Harrisburg", "Washington DC", "Baltimore", "Jacksonville",
             "Indianapolis", "Fort Lauderdale", "Savannah", "Roanoke", "Detroit", "Tampa", "Atlanta", "Orlando",
             "Los Angeles", "Denver", "San Francisco", "West Palm Beach", "San Jose", "Seattle", "Portland", "Dallas",
@@ -50,19 +51,23 @@ public class UI implements ActionListener {
 
     public UI(){
         //DEFINING VARIABLES
+        //COMBO BOXES
         origin = new JComboBox(destinations);
         destination = new JComboBox(destinations);
+
+        //LABELS
         check = new JLabel();
         check.setVisible(false);
         label = new JLabel("Please choose origin and destination airports");
         originLabel = new JLabel("Flight Origin");
         destinationLabel = new JLabel("Flight Destination");
-        frame = new JFrame("CMPSC221 Final Project");
-        comboStuff = new JPanel();
-        returns = new JPanel();
+
+        //CONTAINERS && BUTTON
+        mainFrame = new JFrame("CMPSC221 Final Project");
+        leftPanel = new JPanel();
+        rightPanel = new JPanel();
         button = new JButton("FIND FLIGHTS");
 
-        //button.addActionListener(this);
 
         //LEFT PANEL -- INPUT VALUES
         origin.setBounds(0, 50, 150, 25);
@@ -70,35 +75,35 @@ public class UI implements ActionListener {
         destination.setBounds(200, 50, 150, 25);
         destinationLabel.setBounds(230,30,150,25);
 
-        comboStuff.setBackground(Color.lightGray);
-        comboStuff.setLayout(null);
-        comboStuff.add(destination);
-        comboStuff.add(destinationLabel);
-        comboStuff.add(origin);
-        comboStuff.add(originLabel);
+        leftPanel.setBackground(Color.lightGray);
+        leftPanel.setLayout(null);
+        leftPanel.add(destination);
+        leftPanel.add(destinationLabel);
+        leftPanel.add(origin);
+        leftPanel.add(originLabel);
 
         //BUTTON STUFF
         button.setBounds(100,100,150,25);
         button.addActionListener(this);
-        comboStuff.add(button);
+        leftPanel.add(button);
 
 
         //RIGHT PANEL -- RETURN VALUES
         label.setBounds(30,50,300,25);
         check.setBounds(10, 100,150,25);
-        returns.setLayout(null);
-        returns.add(label);
-        returns.add(check);
-        returns.setBackground(Color.lightGray);
+        rightPanel.setLayout(null);
+        rightPanel.add(label);
+        rightPanel.add(check);
+        rightPanel.setBackground(Color.lightGray);
 
 
         //ADD TO FRAME
-        frame.setLayout(new GridLayout(0,2));
-        frame.setSize(800,180);
-        frame.add(comboStuff);
-        frame.add(returns);
-        frame.setVisible(true);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        mainFrame.setLayout(new GridLayout(0,2));
+        mainFrame.setSize(800,500);
+        mainFrame.add(leftPanel);
+        mainFrame.add(rightPanel);
+        mainFrame.setVisible(true);
+        mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
     }
 
@@ -113,15 +118,16 @@ public class UI implements ActionListener {
         } else if(origin.getSelectedItem() == destination.getSelectedItem()){
             label.setText("Cannot select same origin and destination");
         } else {
-            label.setText("Origin: " + origin.getSelectedItem() + "       Destination: " + destination.getSelectedItem());
+            label.setText("Showing flights to " + destination.getSelectedItem().toString() + " from " + origin.getSelectedItem().toString());
             airportLocation = origin.getSelectedItem().toString();
             user.setDestination(destination.getSelectedItem().toString());
 
             listFlights = new JList(airLineOne.flightsWithSameDestForUi(destination.getSelectedItem().toString(), origin.getSelectedItem().toString()));
-            airLineOne.printFlightsWithSameDest(destination.getSelectedItem().toString(), origin.getSelectedItem().toString());
+            listFlights.setFixedCellHeight(30);
+            listFlights.setFont(new Font("Dialog",Font.BOLD,12));
             scrollPane = new JScrollPane(listFlights);
-            scrollPane.setBounds(0, 200, 200,200);
-            returns.add(scrollPane);
+            scrollPane.setBounds(0, 150, 350,250);
+            rightPanel.add(scrollPane);
             scrollPane.setVisible(true);
             check.setVisible(true);
         }

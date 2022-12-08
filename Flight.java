@@ -128,7 +128,9 @@ public class Flight {
         }
     }
 
-    public int getSeatsTakenOnFlight() {return paxWithTickets.size();}
+    public int getSeatsTakenOnFlight() {
+        return paxWithTickets.size();
+    }
 
 
     //CUSTOM PRINT METHODS
