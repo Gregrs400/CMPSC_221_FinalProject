@@ -103,7 +103,8 @@ public class Airline {
             }
         }
 
-        return (String[]) uiFlights.toArray();
+        return uiFlights.toArray(new String[uiFlights.size()]);
+
     }
 
     public void printAllFlights() {
